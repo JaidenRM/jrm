@@ -3,7 +3,7 @@ interface NavOptionProps {
   to: string
 }
 
-export const NAV_OPTIONS = Object.freeze({
+export const NAV_OPTIONS: { [id: string]: NavOptionProps } = Object.freeze({
   OPTION1: {
     name: "Option 1",
     to: "option1",

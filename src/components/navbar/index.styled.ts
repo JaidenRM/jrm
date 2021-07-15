@@ -1,10 +1,15 @@
 import styled from "styled-components"
 import { Link as LinkScroll } from "react-scroll"
 
-export const Nav = styled.nav`
-  background: #000;
+interface NavProps {
+  isNavScrolling?: boolean
+}
+
+export const Nav = styled.nav<NavProps>`
+  background: ${({ isNavScrolling }) =>
+    isNavScrolling ? "#000" : "transparent"};
   height: 80px;
-  // margin-top: -80px;
+  transition: background-color 0.3s ease-in-out;
   display: flex;
   justify-content: center;
   align-items: center;
