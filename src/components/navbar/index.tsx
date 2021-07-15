@@ -1,24 +1,28 @@
 import React from "react"
+import map from "lodash/map"
 import { FaBars } from "react-icons/fa"
 import * as S from "./index.styled"
+import { NAV_OPTIONS } from "../../utils/constants/nav"
 
-export const Navbar = () => {
+interface NavbarProps {
+  toggle: () => void
+}
+
+export const Navbar: React.FC<NavbarProps> = ({ toggle }) => {
   return (
     <S.Nav>
       <S.NavContainer>
         <S.NavMobileWrapper>
-          <FaBars />
+          <FaBars onClick={toggle} />
         </S.NavMobileWrapper>
         <S.NavMenu>
-          <S.NavMenuItem>
-            <S.NavLinks to="/option1">Option 1</S.NavLinks>
-          </S.NavMenuItem>
-          <S.NavMenuItem>
-            <S.NavLinks to="/option2">Option 2</S.NavLinks>
-          </S.NavMenuItem>
-          <S.NavMenuItem>
-            <S.NavLinks to="/option3">Option 3</S.NavLinks>
-          </S.NavMenuItem>
+          {map(NAV_OPTIONS, (opt, idx) => (
+            <S.NavMenuItem>
+              <S.NavLinks to={opt.to} key={idx}>
+                {opt.name}
+              </S.NavLinks>
+            </S.NavMenuItem>
+          ))}
         </S.NavMenu>
       </S.NavContainer>
     </S.Nav>
