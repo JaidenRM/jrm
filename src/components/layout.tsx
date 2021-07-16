@@ -5,35 +5,20 @@
  * See: https://www.gatsbyjs.com/docs/use-static-query/
  */
 
-import * as React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { useStaticQuery, graphql } from "gatsby";
-
-import Header from "./header";
 import "./layout.css";
-
-interface SiteQuery {
-  site: {
-    siteMetadata: {
-      title: string;
-    };
-  };
-}
+import { Navbar } from "./navbar";
+import { Topbar } from "./topbar";
 
 const Layout: React.FC = ({ children }) => {
-  const data = useStaticQuery<SiteQuery>(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `);
+  const [isTopbarOpen, setIsTopbarOpen] = useState(false);
+  const toggleIsTopbarOpen = () => setIsTopbarOpen(prev => !prev);
 
   return (
     <>
-      <Header siteTitle={data.site.siteMetadata?.title || "Title"} />
+      <Topbar isOpen={isTopbarOpen} toggle={toggleIsTopbarOpen} />
+      <Navbar toggle={toggleIsTopbarOpen} />
       <div
         style={{
           margin: "0 auto",

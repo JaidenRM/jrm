@@ -1,10 +1,4 @@
 "use strict";
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.com/docs/use-static-query/
- */
 var __createBinding =
   (this && this.__createBinding) ||
   (Object.create
@@ -48,46 +42,45 @@ var __importDefault =
     return mod && mod.__esModule ? mod : { default: mod };
   };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Navbar = void 0;
 var react_1 = __importStar(require("react"));
-var prop_types_1 = __importDefault(require("prop-types"));
-require("./layout.css");
-var navbar_1 = require("./navbar");
-var topbar_1 = require("./topbar");
-var Layout = function (_a) {
-  var children = _a.children;
+var map_1 = __importDefault(require("lodash/map"));
+var fa_1 = require("react-icons/fa");
+var S = __importStar(require("./index.styled"));
+var nav_1 = require("../../utils/constants/nav");
+var Navbar = function (_a) {
+  var toggle = _a.toggle;
   var _b = react_1.useState(false),
-    isTopbarOpen = _b[0],
-    setIsTopbarOpen = _b[1];
-  var toggleIsTopbarOpen = function () {
-    return setIsTopbarOpen(function (prev) {
-      return !prev;
-    });
+    isNavScrolling = _b[0],
+    setIsNavScrolling = _b[1];
+  var onScrollHandler = function () {
+    return setIsNavScrolling(window.scrollY >= 80);
   };
+  react_1.useEffect(function () {
+    window.addEventListener("scroll", onScrollHandler);
+    return function () {
+      return window.removeEventListener("scroll", onScrollHandler);
+    };
+  }, []);
   return (
-    <>
-      <topbar_1.Topbar isOpen={isTopbarOpen} toggle={toggleIsTopbarOpen} />
-      <navbar_1.Navbar toggle={toggleIsTopbarOpen} />
-      <div
-        style={{
-          margin: "0 auto",
-          maxWidth: 960,
-          padding: "0 1.0875rem 1.45rem",
-        }}
-      >
-        <main>{children}</main>
-        <footer
-          style={{
-            marginTop: "2rem",
-          }}
-        >
-          © {new Date().getFullYear()}, Built with{" "}
-          <a href="https://www.gatsbyjs.com">Gatsby</a>
-        </footer>
-      </div>
-    </>
+    <S.Nav isNavScrolling={isNavScrolling}>
+      <S.NavContainer>
+        <S.NavMobileWrapper>
+          <fa_1.FaBars onClick={toggle} />
+        </S.NavMobileWrapper>
+        <S.NavMenu>
+          {map_1.default(nav_1.NAV_OPTIONS, function (opt, idx) {
+            return (
+              <S.NavMenuItem>
+                <S.NavLinks to={opt.to} key={idx} duration={500} smooth spy>
+                  {opt.name}
+                </S.NavLinks>
+              </S.NavMenuItem>
+            );
+          })}
+        </S.NavMenu>
+      </S.NavContainer>
+    </S.Nav>
   );
 };
-Layout.propTypes = {
-  children: prop_types_1.default.node.isRequired,
-};
-exports.default = Layout;
+exports.Navbar = Navbar;
