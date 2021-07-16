@@ -9,10 +9,14 @@ import * as React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 
-import Header from "./header"
 import "./layout.css"
+import { Navbar } from "./navbar"
+import { Topbar } from "./topbar"
+import { useState } from "react"
 
 const Layout: React.FC = ({ children }) => {
+  const [isTopbarOpen, setIsTopbarOpen] = useState(false)
+  const toggleIsTopbarOpen = () => setIsTopbarOpen(prev => !prev)
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -25,7 +29,8 @@ const Layout: React.FC = ({ children }) => {
 
   return (
     <>
-      <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
+      <Topbar isOpen={isTopbarOpen} toggle={toggleIsTopbarOpen} />
+      <Navbar toggle={toggleIsTopbarOpen} />
       <div
         style={{
           margin: `0 auto`,
