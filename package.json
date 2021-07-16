@@ -39,6 +39,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.20.3",
     "eslint-plugin-react-hooks": "^4.0.8",
+    "husky": "^7.0.1",
     "prettier": "2.3.2"
   },
   "keywords": [
@@ -52,8 +53,8 @@
     "prettier:fix": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "eslint": "eslint \"src/**/*.{ts,tsx}\"",
     "eslint:fix": "eslint --fix \"src/**/*.{ts,tsx}\"",
-    "style:all": "tsc && yarn run eslint && yarn run prettier",
-    "style:all:fix": "tsc && yarn run eslint:fix && yarn run prettier:fix",
+    "style:all": "yarn run eslint && yarn run prettier",
+    "style:all:fix": "yarn run eslint:fix && yarn run prettier:fix",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",

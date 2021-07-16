@@ -36,7 +36,7 @@ interface SiteQuery {
   };
 }
 
-const Seo: React.FC<SeoProps> = ({
+export const Seo: React.FC<SeoProps> = ({
   description = "",
   lang = "en",
   meta = [],
@@ -103,5 +103,3 @@ const Seo: React.FC<SeoProps> = ({
     />
   );
 };
-
-export default Seo;

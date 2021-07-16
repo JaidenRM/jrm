@@ -6,12 +6,10 @@
  */
 
 import React, { useState } from "react";
-import PropTypes from "prop-types";
-import "./layout.css";
 import { Navbar } from "./navbar";
 import { Topbar } from "./topbar";
 
-const Layout: React.FC = ({ children }) => {
+export const Layout: React.FC = ({ children }) => {
   const [isTopbarOpen, setIsTopbarOpen] = useState(false);
   const toggleIsTopbarOpen = () => setIsTopbarOpen(prev => !prev);
 
@@ -39,9 +37,3 @@ const Layout: React.FC = ({ children }) => {
     </>
   );
 };
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
-export default Layout;
