@@ -3,6 +3,7 @@ import map from "lodash/map";
 import { FaBars } from "react-icons/fa";
 import * as S from "./index.styled";
 import { NAV_OPTIONS } from "../../utils/constants/nav";
+import { ThemeSwitch } from "../theme-switch";
 
 interface NavbarProps {
   toggle: () => void;
@@ -34,6 +35,9 @@ export const Navbar: React.FC<NavbarProps> = ({ toggle }) => {
             </S.NavMenuItem>
           ))}
         </S.NavMenu>
+        <S.ThemeWrapper>
+          <ThemeSwitch />
+        </S.ThemeWrapper>
       </S.NavContainer>
     </S.Nav>
   );
