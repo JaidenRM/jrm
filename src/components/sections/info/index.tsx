@@ -49,7 +49,7 @@ export const InfoSection: React.FC<InfoDataProps> = ({
               <S.Heading isLightText={isLightText}>{heading}</S.Heading>
               <S.Subheading isDarkText={isDarkText}>{subheading}</S.Subheading>
               <S.ButtonWrapper>
-                <SBtn.PrimaryButton
+                <SBtn.PrimaryLinkScrollButton
                   to="hero"
                   duration={500}
                   smooth
@@ -58,7 +58,7 @@ export const InfoSection: React.FC<InfoDataProps> = ({
                   isDark={isDark}
                 >
                   {buttonLabel}
-                </SBtn.PrimaryButton>
+                </SBtn.PrimaryLinkScrollButton>
               </S.ButtonWrapper>
             </S.TextWrapper>
           </S.Column1>

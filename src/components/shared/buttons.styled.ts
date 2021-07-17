@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Link as LinkScroll } from "react-scroll";
 
 interface PrimaryBtnProps {
@@ -8,7 +8,7 @@ interface PrimaryBtnProps {
   isFontBig?: boolean;
 }
 
-export const PrimaryButton = styled(LinkScroll)<PrimaryBtnProps>`
+const PrimaryButtonCss = css<PrimaryBtnProps>`
   border-radius: 50px;
   background: ${({ isPrimary }) => (isPrimary ? "#01BF71" : "#010606")};
   white-space: nowrap;
@@ -29,4 +29,10 @@ export const PrimaryButton = styled(LinkScroll)<PrimaryBtnProps>`
   }
 `;
 
-export const Apple = "ss'";
+export const PrimaryLinkScrollButton = styled(LinkScroll)<PrimaryBtnProps>`
+  ${PrimaryButtonCss}
+`;
+
+export const PrimaryButton = styled.button<PrimaryBtnProps>`
+  ${PrimaryButtonCss}
+`;

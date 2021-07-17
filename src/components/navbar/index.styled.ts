@@ -48,6 +48,8 @@ export const NavMobileWrapper = styled.div`
   }
 `;
 
+export const ThemeWrapper = styled.div``;
+
 export const NavMenu = styled.ul`
   display: flex;
   align-items: center;
@@ -75,6 +77,6 @@ export const NavLinks = styled(LinkScroll)`
   cursor: pointer;
 
   &.active {
-    border-bottom: 3px solid #01bf71;
+    border-bottom: 4px solid #01bf71;
   }
 `;
