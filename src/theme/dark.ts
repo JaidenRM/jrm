@@ -1,4 +1,4 @@
-import { ThemeSchema } from "../../@types/theme";
+import { ThemeSchema } from "../@types/theme";
 
 export const DARK_THEME: ThemeSchema = {
   id: "T_001",

@@ -4,7 +4,7 @@ import { FaRegMoon } from "react-icons/fa";
 import { PrimaryButton } from "../shared/buttons.styled";
 import * as S from "./index.styled";
 import { useDefaultThemeContext } from "../../providers/theme";
-import { DARK_THEME } from "../../content/theme";
+import { DARK_THEME } from "../../theme";
 
 export const ThemeSwitch: React.FC = () => {
   const [theme, themeHandlers] = useDefaultThemeContext();
