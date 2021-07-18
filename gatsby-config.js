@@ -3,13 +3,14 @@ module.exports = {
     title: `Jaiden Muscat`,
     description: `My short blurb`,
     author: `@JaidenRM`,
-    siteUrl: `N\\A`,
+    siteUrl: `https://github.com/JaidenRM`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-scroll-reveal`,
     `gatsby-plugin-image`,
+    `gatsby-plugin-mdx`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -17,8 +18,26 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `content`,
+        path: `${__dirname}/src/content`,
+      },
+    },
+    `gatsby-transformer-remark`,
     `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
+    `gatsby-plugin-graphql-codegen`,
+    {
+      resolve: `gatsby-plugin-sharp`,
+      options: {
+        defaults: {
+          quality: 90,
+          formats: [`auto`, `webp`, `avif`],
+          placeholder: `blurred`,
+        },
+      },
+    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

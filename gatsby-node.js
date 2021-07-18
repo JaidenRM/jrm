@@ -4,4 +4,16 @@
  * See: https://www.gatsbyjs.com/docs/node-apis/
  */
 
-// You can delete this file if you're not using it
+exports.createSchemaCustomization = ({ actions, schema }) => {
+  const { createTypes } = actions;
+
+  createTypes(`
+    type Mdx implements Node {
+      frontmatter: Frontmatter  
+    }
+
+    type Frontmatter {
+      images: [File] @fileByRelativePath
+    }
+ `);
+};

@@ -4,10 +4,10 @@ import some from "lodash/some";
 import noop from "lodash/noop";
 import { ThemeProvider } from "styled-components";
 import { ThemeSchema } from "../../@types/theme";
-import { DARK_THEME, LIGHT_THEME } from "../../content/theme";
+import { DARK_THEME, LIGHT_THEME } from "../../theme";
 import { getFromLS, setToLS } from "../../utils/local-storage";
 import { KEYS } from "../../utils/constants/local-storage";
-import { GlobalStyles } from "../../content/theme/global-styles";
+import { GlobalStyles } from "../../theme/global-styles";
 
 type ThemeBank = { [id: string]: ThemeSchema };
 type ThemeContextProps = [ThemeSchema, ThemeHandlers];
