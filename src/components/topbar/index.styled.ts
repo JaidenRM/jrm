@@ -4,7 +4,7 @@ import { FaTimes } from "react-icons/fa";
 
 export const TopbarContainer = styled.aside<{ isOpen: boolean }>`
   position: fixed;
-  z-index: 999;
+  z-index: ${({ theme }) => theme.zindex.topbar};
   width: 100%;
   height: 100%;
   background: #0d0d0d;
