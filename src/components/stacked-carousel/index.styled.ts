@@ -90,6 +90,7 @@ export const CarouselPrevious = styled.div`
   margin-right: 50px;
   font-size: 64px;
   z-index: ${({ theme }) => theme.zindex.carousel.itemFirst + 1};
+  color: ${({ theme }) => theme.colors.text};
 
   ${({ theme }) => `
     @media screen and (max-width: ${theme.media.tablets}) {
@@ -107,6 +108,7 @@ export const CarouselNext = styled.div`
   margin-left: 50px;
   font-size: 64px;
   z-index: ${({ theme }) => theme.zindex.carousel.itemFirst + 1};
+  color: ${({ theme }) => theme.colors.text};
 
   ${({ theme }) => `
     @media screen and (max-width: ${theme.media.tablets}) {
@@ -137,6 +139,8 @@ export const FullScreenChildWrapper = styled.div`
 export const FullScreenCloseIcon = styled.div`
   position: fixed;
   display: flex;
+  padding: 0.4rem 1rem;
+  border-radius: 50%;
   right: 1rem;
   top: 1rem;
   font-size: 4rem;

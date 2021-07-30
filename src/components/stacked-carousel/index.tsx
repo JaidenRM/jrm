@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import map from "lodash/map";
 import filter from "lodash/filter";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { FcPrevious, FcNext } from "react-icons/fc";
-import { GrClose } from "react-icons/gr";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronRight,
+  faChevronLeft,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 import * as S from "./index.styled";
 import { useStackedCarouselData } from "../../@hooks/use-stacked-carousel-data";
 
@@ -33,7 +37,7 @@ export const StackedCarousel: React.FC<StackedCarouselProps> = ({
             setTimerPause(false);
           }}
         >
-          <GrClose />
+          <FontAwesomeIcon icon={faTimes} />
         </S.FullScreenCloseIcon>
         <S.FullScreenChildWrapper>{modalImage}</S.FullScreenChildWrapper>
       </S.FullScreenContainer>
@@ -42,8 +46,8 @@ export const StackedCarousel: React.FC<StackedCarouselProps> = ({
   if (orderedChildren.length > 0)
     return (
       <S.CarouselWrapper>
-        <S.CarouselPrevious>
-          <FcPrevious onClick={onPreviousHandler} />
+        <S.CarouselPrevious onClick={onPreviousHandler}>
+          <FontAwesomeIcon icon={faChevronLeft} />
         </S.CarouselPrevious>
         <S.CarouselItemsWrapper items={visibleItems}>
           <TransitionGroup>
@@ -71,8 +75,8 @@ export const StackedCarousel: React.FC<StackedCarouselProps> = ({
             )}
           </TransitionGroup>
         </S.CarouselItemsWrapper>
-        <S.CarouselNext>
-          <FcNext onClick={onNextHandler} />
+        <S.CarouselNext onClick={onNextHandler}>
+          <FontAwesomeIcon icon={faChevronRight} />
         </S.CarouselNext>
       </S.CarouselWrapper>
     );

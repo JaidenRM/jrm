@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import map from "lodash/map";
-import { FaBars } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 import * as S from "./index.styled";
 import { NAV_OPTIONS } from "../../utils/constants/nav";
 import { ThemeSwitch } from "../theme-switch";
@@ -23,8 +24,8 @@ export const Navbar: React.FC<NavbarProps> = ({ toggle }) => {
   return (
     <S.Nav isNavScrolling={isNavScrolling}>
       <S.NavContainer>
-        <S.NavMobileWrapper>
-          <FaBars onClick={toggle} />
+        <S.NavMobileWrapper onClick={toggle}>
+          <FontAwesomeIcon icon={faBars} />
         </S.NavMobileWrapper>
         <S.NavMenu>
           {map(NAV_OPTIONS, (opt, idx) => (

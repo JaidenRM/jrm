@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link as LinkScroll } from "react-scroll";
-import { FaTimes } from "react-icons/fa";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 export const TopbarContainer = styled.aside<{ isOpen: boolean }>`
   position: fixed;
@@ -17,10 +17,6 @@ export const TopbarContainer = styled.aside<{ isOpen: boolean }>`
   top: ${({ isOpen }) => (isOpen ? 0 : "-100%")};
 `;
 
-export const CloseIcon = styled(FaTimes)`
-  color: #fff;
-`;
-
 export const IconWrapper = styled.div`
   position: absolute;
   top: 1.2rem;
@@ -29,6 +25,7 @@ export const IconWrapper = styled.div`
   font-size: 2rem;
   cursor: pointer;
   outline: none;
+  color: #fff;
 `;
 export const TopbarMenuWrapper = styled.div`
   color: #fff;
