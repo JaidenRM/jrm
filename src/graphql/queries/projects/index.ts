@@ -18,7 +18,7 @@ export const useProjectsQuery = (): ProjectsQuery => {
             tags
             images {
               childImageSharp {
-                gatsbyImageData(layout: FULL_WIDTH)
+                gatsbyImageData
               }
             }
           }

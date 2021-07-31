@@ -33,7 +33,7 @@ module.exports = {
       options: {
         defaults: {
           quality: 90,
-          formats: [`auto`, `webp`, `avif`],
+          formats: [`auto`, `webp`],
           placeholder: `blurred`,
         },
       },

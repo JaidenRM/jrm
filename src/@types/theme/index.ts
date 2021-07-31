@@ -24,10 +24,20 @@ interface MediaQueries {
   xlarge: string;
 }
 
+interface ZIndexes {
+  nav: number;
+  topbar: number;
+  carousel: {
+    itemFirst: number;
+    fullScreen: number;
+  };
+}
+
 export interface ThemeSchema {
   id: string;
   name: string;
   colors: ThemeColors;
   font: ThemeFonts;
   media: MediaQueries;
+  zindex: ZIndexes;
 }

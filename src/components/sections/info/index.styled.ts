@@ -11,7 +11,6 @@ export const InfoContainer = styled.div<{ isLightBg?: boolean }>`
 
 export const InfoWrapper = styled.div`
   display: grid;
-  z-index: 100%;
   height: 860px;
   width: 100%;
   max-width: 1100px;

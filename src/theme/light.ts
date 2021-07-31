@@ -25,4 +25,12 @@ export const LIGHT_THEME: ThemeSchema = {
     laptops: "992px",
     xlarge: "1200px",
   },
+  zindex: {
+    nav: 100,
+    topbar: 1000,
+    carousel: {
+      itemFirst: 30,
+      fullScreen: 900,
+    },
+  },
 };

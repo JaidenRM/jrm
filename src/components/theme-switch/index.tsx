@@ -1,6 +1,6 @@
 import React from "react";
-import { ImSun } from "react-icons/im";
-import { FaRegMoon } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { PrimaryButton } from "../shared/buttons.styled";
 import * as S from "./index.styled";
 import { useDefaultThemeContext } from "../../providers/theme";
@@ -13,7 +13,7 @@ export const ThemeSwitch: React.FC = () => {
     <S.SwitchWrapper>
       <PrimaryButton onClick={themeHandlers.toggleDarkMode}>
         <S.IconWrapper>
-          {theme.id === DARK_THEME.id ? <ImSun /> : <FaRegMoon />}
+          <FontAwesomeIcon icon={theme.id === DARK_THEME.id ? faSun : faMoon} />
         </S.IconWrapper>
       </PrimaryButton>
     </S.SwitchWrapper>

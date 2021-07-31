@@ -16,7 +16,7 @@ export const Nav = styled.nav<NavProps>`
   font-size: 1rem;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: ${({ theme }) => theme.zindex.nav};
 
   @media screen and (max-width: 960px) {
     transition: all 0.8s ease;
