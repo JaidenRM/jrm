@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import map from "lodash/map";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import { GatsbyImage, getImage, IGatsbyImageData } from "gatsby-plugin-image";
 import { useProjectsQuery } from "../../../graphql/queries/projects";
 import { StackedCarousel } from "../../stacked-carousel";
 import * as S from "./index.styled";
+import { setInitialStateForAllFlipCards } from "../../../utils/flip-card";
 
 export const ProjectSection: React.FC = () => {
   const data = useProjectsQuery();
+  const [flipCardStates, setFlipCardStates] = useState(
+    setInitialStateForAllFlipCards(data.allMdx.nodes)
+  );
+
+  useEffect(() => {
+    setFlipCardStates(setInitialStateForAllFlipCards(data.allMdx.nodes));
+  }, [data]);
 
   return (
     <S.CardsContainer>
@@ -22,6 +30,7 @@ export const ProjectSection: React.FC = () => {
                   image={image}
                   imgStyle={{ objectFit: "contain" }}
                   style={{ height: "100%", width: "100%" }}
+                  key={`${idx}gatsbyImage`}
                 />
               )
             );
@@ -30,7 +39,18 @@ export const ProjectSection: React.FC = () => {
         });
 
         return (
-          <S.FlexedFlipCard key={idx} flippedClassName="flipped-card">
+          <S.FlexedFlipCard
+            key={idx}
+            flippedClassName="flipped-card"
+            isFlipped={!!flipCardStates[idx]}
+            onFlip={() =>
+              setFlipCardStates(prev => ({
+                ...prev,
+                [idx]: !prev[idx],
+              }))
+            }
+            hasInteractivity
+          >
             <S.FrontCard>
               <h1>{proj.frontmatter?.name}</h1>
               <h3>Status: {proj.frontmatter?.status}</h3>

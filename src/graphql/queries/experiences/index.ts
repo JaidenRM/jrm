@@ -6,7 +6,7 @@ export const useExperiencesQuery = (): ExperiencesQuery => {
     query Experiences {
       allMdx(
         filter: { fileAbsolutePath: { regex: "/experience/" } }
-        sort: { order: ASC, fields: frontmatter___startDate }
+        sort: { order: DESC, fields: frontmatter___startDate }
       ) {
         nodes {
           frontmatter {
