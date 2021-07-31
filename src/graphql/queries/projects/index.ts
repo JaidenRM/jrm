@@ -6,7 +6,7 @@ export const useProjectsQuery = (): ProjectsQuery => {
     query Projects {
       allMdx(
         filter: { fileAbsolutePath: { regex: "/project/" } }
-        sort: { order: ASC, fields: frontmatter___date }
+        sort: { order: DESC, fields: frontmatter___date }
       ) {
         nodes {
           frontmatter {
