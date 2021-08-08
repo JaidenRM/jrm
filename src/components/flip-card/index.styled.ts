@@ -36,18 +36,19 @@ const CardFlipCssAnimations = css`
 
 export const Card = styled.div<{ isFront: boolean }>`
   border-radius: 0.5rem;
+  background: ${({ theme }) => theme.colors.body};
   height: 100%;
   box-sizing: border-box;
   padding: 1rem;
-  box-shadow: 0 4px 8px 0 ${({ theme }) => theme.colors.primary.fg};
+  box-shadow: 0 4px 8px 0 ${({ theme }) => theme.colors.text};
   transition: 0.3s;
 
   ${({ isFront, theme }) =>
     isFront &&
     `
       &:hover {
-        box-shadow: 0 8px 16px 0 ${theme.colors.primary.fg},
-          0 0 0 3px ${theme.colors.primary.fg};
+        box-shadow: 0 8px 16px 0 ${theme.colors.primary.normal.bg},
+          0 0 0 3px ${theme.colors.primary.normal.bg};
         transform: translateY(-1rem);
       }`}
 `;
@@ -58,7 +59,15 @@ export const ActionsWrapper = styled.div`
   text-align: end;
 `;
 
-export const ShakeIcon = styled(FontAwesomeIcon)`
+export const FlipIconWrapper = styled.div`
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const FlipIcon = styled(FontAwesomeIcon)`
+  color: ${({ theme }) => theme.colors.primary.normal.bg};
+
   &:hover {
     animation: ${FlipOverAnim} 1.5s linear infinite;
   }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import map from "lodash/map";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -12,33 +12,72 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ toggle }) => {
   const [isNavScrolling, setIsNavScrolling] = useState(false);
+  const [isNavVisible, setIsNavVisible] = useState(true);
+  const [isMouseInNav, setIsMouseInNav] = useState(false);
+  const [scrollTimerId, setScrollTimerId] = useState<NodeJS.Timer | undefined>(
+    undefined
+  );
 
-  const onScrollHandler = () => setIsNavScrolling(window.scrollY >= 80);
+  const onScrollHandler = useCallback(() => {
+    setIsNavVisible(true);
+
+    if (window.scrollY >= 80) {
+      setIsNavScrolling(true);
+      if (!isMouseInNav)
+        setScrollTimerId(setTimeout(() => setIsNavVisible(false), 3000));
+    } else {
+      if (scrollTimerId) clearTimeout(scrollTimerId);
+      setIsNavScrolling(false);
+    }
+  }, [scrollTimerId, isMouseInNav]);
+
+  const onMouseEnterHandler = useCallback(() => {
+    setIsMouseInNav(true);
+    if (scrollTimerId) clearTimeout(scrollTimerId);
+  }, [scrollTimerId]);
+
+  const onMouseLeaveHandler = useCallback(() => setIsMouseInNav(false), []);
 
   useEffect(() => {
-    window.addEventListener("scroll", onScrollHandler);
+    window.addEventListener("scroll", onScrollHandler, { passive: true });
 
-    return () => window.removeEventListener("scroll", onScrollHandler);
-  }, []);
+    return () => {
+      if (scrollTimerId) clearTimeout(scrollTimerId);
+      window.removeEventListener("scroll", onScrollHandler);
+    };
+  }, [onScrollHandler, scrollTimerId]);
 
   return (
-    <S.Nav isNavScrolling={isNavScrolling}>
+    <S.Nav
+      isScrolling={isNavScrolling}
+      isVisible={isNavVisible}
+      onMouseEnter={onMouseEnterHandler}
+      onMouseLeave={onMouseLeaveHandler}
+    >
       <S.NavContainer>
-        <S.NavMobileWrapper onClick={toggle}>
-          <FontAwesomeIcon icon={faBars} />
-        </S.NavMobileWrapper>
+        <S.NavLeftWrapper>
+          <ThemeSwitch />
+        </S.NavLeftWrapper>
         <S.NavMenu>
           {map(NAV_OPTIONS, (opt, idx) => (
-            <S.NavMenuItem>
-              <S.NavLinks to={opt.to} key={idx} duration={500} smooth spy>
+            <S.NavMenuItem key={idx}>
+              <S.NavLinks
+                to={opt.to}
+                key={idx}
+                duration={500}
+                offset={-80}
+                smooth
+                spy
+              >
                 {opt.name}
               </S.NavLinks>
             </S.NavMenuItem>
           ))}
         </S.NavMenu>
-        <S.ThemeWrapper>
-          <ThemeSwitch />
-        </S.ThemeWrapper>
+        <S.NavRightWrapper />
+        <S.NavMobileWrapper onClick={toggle}>
+          <FontAwesomeIcon icon={faBars} />
+        </S.NavMobileWrapper>
       </S.NavContainer>
     </S.Nav>
   );

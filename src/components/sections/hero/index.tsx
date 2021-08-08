@@ -1,16 +1,28 @@
 import React from "react";
 import * as S from "./index.styled";
 
-export const HeroSection: React.FC = () => {
+interface HeroProps {
+  id: string;
+}
+
+export const HeroSection: React.FC<HeroProps> = ({ id }) => {
+  const currentJob = (
+    <a href="https://compass.education" target="_blank" rel="noreferrer">
+      Compass Education
+    </a>
+  );
   return (
-    <S.HeroContainer id="hero">
-      <S.HeroBg>Hi</S.HeroBg>
-      <S.HeroContent>
-        <S.HeroHeader>Welcome</S.HeroHeader>
-        <S.HeroDescription>
-          This is my website, thanks for coming to my TED Talk.
-        </S.HeroDescription>
-      </S.HeroContent>
-    </S.HeroContainer>
+    <S.StyledBgSection id={id}>
+      <S.HeroContainer>
+        <S.HeroContent>
+          <S.BigHeroHeader>Hey,</S.BigHeroHeader>
+          <S.SmallHeroHeader>I&apos;m Jaiden Muscat</S.SmallHeroHeader>
+          <S.HeroDescription>
+            I enjoy dabbling in new technologies and tinkering about. Currently
+            I&apos;m working at {currentJob} as a software engineer.
+          </S.HeroDescription>
+        </S.HeroContent>
+      </S.HeroContainer>
+    </S.StyledBgSection>
   );
 };

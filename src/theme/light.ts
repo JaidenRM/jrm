@@ -6,18 +6,39 @@ export const LIGHT_THEME: ThemeSchema = {
   colors: {
     body: "#FFFFFF",
     text: "#000000",
-    link: "blue",
+    link: "#1EB6A7",
     primary: {
-      fg: "#000000",
-      bg: "#FFFFFF",
+      lighter: {
+        fg: "#000000",
+        bg: "#82EBE0",
+      },
+      normal: {
+        fg: "#000000",
+        bg: "#40E0D0",
+      },
+      darker: {
+        fg: "#000000",
+        bg: "#1EB6A7",
+      },
     },
     secondary: {
-      fg: "lightgrey",
-      bg: "#FFFFFF",
+      lighter: {
+        fg: "#000000",
+        bg: "#f7f7f7",
+      },
+      normal: {
+        fg: "#000000",
+        bg: "#f7f7f7",
+      },
+      darker: {
+        fg: "#000000",
+        bg: "#f7f7f7",
+      },
     },
   },
   font: {
-    font: "Ubuntu",
+    body: "'Montserrat','Merriweather Sans',  sans-serif",
+    header: "'Merriweather Sans', 'Montserrat', sans-serif",
   },
   media: {
     phones: "576px",

@@ -749,6 +749,15 @@ export type SitePluginPluginOptions = {
   namespace?: Maybe<Scalars['String']>;
   transpileTemplateLiterals?: Maybe<Scalars['Boolean']>;
   pure?: Maybe<Scalars['Boolean']>;
+  threshold?: Maybe<Scalars['Int']>;
+  once?: Maybe<Scalars['Boolean']>;
+  disable?: Maybe<Scalars['Boolean']>;
+  selector?: Maybe<Scalars['String']>;
+  animateClassName?: Maybe<Scalars['String']>;
+  disabledClassName?: Maybe<Scalars['String']>;
+  rootMargin?: Maybe<Scalars['String']>;
+  enterEventName?: Maybe<Scalars['String']>;
+  exitEventName?: Maybe<Scalars['String']>;
   extensions?: Maybe<Array<Maybe<Scalars['String']>>>;
   lessBabel?: Maybe<Scalars['Boolean']>;
   mediaTypes?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -2512,6 +2521,15 @@ export type SitePluginPluginOptionsFilterInput = {
   namespace?: Maybe<StringQueryOperatorInput>;
   transpileTemplateLiterals?: Maybe<BooleanQueryOperatorInput>;
   pure?: Maybe<BooleanQueryOperatorInput>;
+  threshold?: Maybe<IntQueryOperatorInput>;
+  once?: Maybe<BooleanQueryOperatorInput>;
+  disable?: Maybe<BooleanQueryOperatorInput>;
+  selector?: Maybe<StringQueryOperatorInput>;
+  animateClassName?: Maybe<StringQueryOperatorInput>;
+  disabledClassName?: Maybe<StringQueryOperatorInput>;
+  rootMargin?: Maybe<StringQueryOperatorInput>;
+  enterEventName?: Maybe<StringQueryOperatorInput>;
+  exitEventName?: Maybe<StringQueryOperatorInput>;
   extensions?: Maybe<StringQueryOperatorInput>;
   lessBabel?: Maybe<BooleanQueryOperatorInput>;
   mediaTypes?: Maybe<StringQueryOperatorInput>;
@@ -2772,6 +2790,15 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___namespace'
   | 'pluginCreator___pluginOptions___transpileTemplateLiterals'
   | 'pluginCreator___pluginOptions___pure'
+  | 'pluginCreator___pluginOptions___threshold'
+  | 'pluginCreator___pluginOptions___once'
+  | 'pluginCreator___pluginOptions___disable'
+  | 'pluginCreator___pluginOptions___selector'
+  | 'pluginCreator___pluginOptions___animateClassName'
+  | 'pluginCreator___pluginOptions___disabledClassName'
+  | 'pluginCreator___pluginOptions___rootMargin'
+  | 'pluginCreator___pluginOptions___enterEventName'
+  | 'pluginCreator___pluginOptions___exitEventName'
   | 'pluginCreator___pluginOptions___extensions'
   | 'pluginCreator___pluginOptions___lessBabel'
   | 'pluginCreator___pluginOptions___mediaTypes'
@@ -3618,6 +3645,15 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___namespace'
   | 'pluginOptions___transpileTemplateLiterals'
   | 'pluginOptions___pure'
+  | 'pluginOptions___threshold'
+  | 'pluginOptions___once'
+  | 'pluginOptions___disable'
+  | 'pluginOptions___selector'
+  | 'pluginOptions___animateClassName'
+  | 'pluginOptions___disabledClassName'
+  | 'pluginOptions___rootMargin'
+  | 'pluginOptions___enterEventName'
+  | 'pluginOptions___exitEventName'
   | 'pluginOptions___extensions'
   | 'pluginOptions___lessBabel'
   | 'pluginOptions___mediaTypes'
@@ -3850,6 +3886,11 @@ export type ExperiencesQuery = { allMdx: { nodes: Array<(
       Pick<Mdx, 'body'>
       & { frontmatter?: Maybe<Pick<Frontmatter, 'startDate' | 'endDate' | 'company' | 'job' | 'website'>> }
     )> } };
+
+export type HeroBgImageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type HeroBgImageQuery = { placeholderImage?: Maybe<{ childImageSharp?: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> };
 
 export type ProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 

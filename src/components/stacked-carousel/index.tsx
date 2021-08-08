@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import map from "lodash/map";
 import filter from "lodash/filter";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
@@ -10,10 +10,23 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import * as S from "./index.styled";
 import { useStackedCarouselData } from "../../@hooks/use-stacked-carousel-data";
+import { useModalContext } from "../../providers/modal";
 
 interface StackedCarouselProps {
   visibleItems: number;
 }
+
+const getFullScreenContainer = (
+  child: React.ReactNode,
+  onClose: () => void
+) => (
+  <S.FullScreenContainer>
+    <S.FullScreenCloseIcon onClick={onClose}>
+      <FontAwesomeIcon icon={faTimes} />
+    </S.FullScreenCloseIcon>
+    <S.FullScreenChildWrapper>{child}</S.FullScreenChildWrapper>
+  </S.FullScreenContainer>
+);
 
 export const StackedCarousel: React.FC<StackedCarouselProps> = ({
   children,
@@ -26,22 +39,11 @@ export const StackedCarousel: React.FC<StackedCarouselProps> = ({
     onNextHandler,
     setTimerPause,
   } = useStackedCarouselData(children);
-  const [modalImage, setModalImage] = useState<React.ReactNode>();
-
-  if (modalImage)
-    return (
-      <S.FullScreenContainer>
-        <S.FullScreenCloseIcon
-          onClick={() => {
-            setModalImage(undefined);
-            setTimerPause(false);
-          }}
-        >
-          <FontAwesomeIcon icon={faTimes} />
-        </S.FullScreenCloseIcon>
-        <S.FullScreenChildWrapper>{modalImage}</S.FullScreenChildWrapper>
-      </S.FullScreenContainer>
-    );
+  const [, { setChild, setDisplay }] = useModalContext();
+  const onClose = () => {
+    setDisplay(false);
+    setTimerPause(false);
+  };
 
   if (orderedChildren.length > 0)
     return (
@@ -64,8 +66,10 @@ export const StackedCarousel: React.FC<StackedCarouselProps> = ({
                     order={idx}
                     isShowing={idx < visibleItems}
                     onClick={() => {
-                      setModalImage(child);
-                      setTimerPause(true);
+                      if (idx === 0) {
+                        setChild(getFullScreenContainer(child, onClose), true);
+                        setTimerPause(true);
+                      }
                     }}
                   >
                     {child}

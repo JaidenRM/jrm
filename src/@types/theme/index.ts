@@ -5,16 +5,23 @@ interface ColorScheme {
   opacity?: string;
 }
 
+interface ColorPalette {
+  lighter: ColorScheme;
+  normal: ColorScheme;
+  darker: ColorScheme;
+}
+
 interface ThemeColors {
   body: string;
   text: string;
-  primary: ColorScheme;
-  secondary: ColorScheme;
+  primary: ColorPalette;
+  secondary: ColorPalette;
   link: string;
 }
 
 interface ThemeFonts {
-  font: string;
+  header: string;
+  body: string;
 }
 
 interface MediaQueries {

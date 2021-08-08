@@ -1,4 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
+import { shakeAnim } from "../shared/animations.styled";
 
 const stackedDistance = "0.75rem";
 const carouselItemAnimCss = css`
@@ -30,11 +31,6 @@ interface CarouselItemProps {
   order: number;
   isShowing?: boolean;
 }
-
-const grow = keyframes`
-  0% { transform: scale(0.9); }
-  100% { transform: scale(1.25); }
-`;
 
 export const CarouselWrapper = styled.div`
   display: flex;
@@ -101,6 +97,10 @@ export const CarouselPrevious = styled.div`
       top: calc(50% - 24px);
     }
   `}
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const CarouselNext = styled.div`
@@ -119,6 +119,10 @@ export const CarouselNext = styled.div`
       top: calc(50% - 24px);
     }
   `}
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const FullScreenContainer = styled.div`
@@ -131,9 +135,14 @@ export const FullScreenContainer = styled.div`
 `;
 
 export const FullScreenChildWrapper = styled.div`
+  max-width: 1100px;
+  max-height: 621px;
   width: 100%;
   height: 100%;
-  background: ${({ theme }) => theme.colors.body};
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 export const FullScreenCloseIcon = styled.div`
@@ -148,10 +157,7 @@ export const FullScreenCloseIcon = styled.div`
   background: ${({ theme }) => theme.colors.body};
 
   &:hover {
-    animation: ${grow} 0.7s linear;
-  }
-
-  & path {
-    stroke: ${({ theme }) => theme.colors.text};
+    animation: ${shakeAnim} 3.5s ease-in-out infinite;
+    cursor: pointer;
   }
 `;

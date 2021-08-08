@@ -7,17 +7,38 @@ export const DARK_THEME: ThemeSchema = {
     body: "#000000",
     text: "#FFFFFF",
     primary: {
-      fg: "#FFFFFF",
-      bg: "#000000",
+      lighter: {
+        fg: "#FFFFFF",
+        bg: "#82ebe0",
+      },
+      normal: {
+        fg: "#FFFFFF",
+        bg: "#40e0d0",
+      },
+      darker: {
+        fg: "#FFFFFF",
+        bg: "#1EB6A7",
+      },
     },
     secondary: {
-      fg: "#FFFFFF",
-      bg: "lightgrey",
+      lighter: {
+        fg: "#FFFFFF",
+        bg: "#121212",
+      },
+      normal: {
+        fg: "#FFFFFF",
+        bg: "#121212",
+      },
+      darker: {
+        fg: "#FFFFFF",
+        bg: "#121212",
+      },
     },
-    link: "blue",
+    link: "#40e0d0",
   },
   font: {
-    font: "Ubuntu",
+    body: "'Montserrat','Merriweather Sans',  sans-serif",
+    header: "'Merriweather Sans', 'Montserrat', sans-serif",
   },
   media: {
     phones: "576px",
