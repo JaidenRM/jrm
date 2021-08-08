@@ -4,4 +4,17 @@
  * See: https://www.gatsbyjs.com/docs/ssr-apis/
  */
 
-// You can delete this file if you're not using it
+import React from "react";
+import { Layout } from "./src/components/layout";
+import { DefaultThemeProvider } from "./src/providers/theme";
+import { ModalProvider } from "./src/providers/modal";
+
+export const wrapPageElement = ({ element, props }) => {
+  return (
+    <DefaultThemeProvider>
+      <ModalProvider>
+        <Layout {...props}>{element}</Layout>
+      </ModalProvider>
+    </DefaultThemeProvider>
+  );
+};
