@@ -11,11 +11,22 @@
 import React from "react";
 import { Layout } from "./src/components/layout";
 import { DefaultThemeProvider } from "./src/providers/theme";
+import { ModalProvider } from "./src/providers/modal";
 
 export const wrapPageElement = ({ element, props }) => {
   return (
     <DefaultThemeProvider>
-      <Layout {...props}>{element}</Layout>
+      <ModalProvider>
+        <Layout {...props}>{element}</Layout>
+      </ModalProvider>
     </DefaultThemeProvider>
   );
+};
+
+export const onClientEntry = () => {
+  // IntersectionObserver polyfill for gatsby-background-image and react-awesome-reveal (Safari, IE)
+  if (!(`IntersectionObserver` in window)) {
+    import(`intersection-observer`);
+    console.log(`# IntersectionObserver is polyfilled!`);
+  }
 };

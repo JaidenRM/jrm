@@ -10,8 +10,8 @@ export const useExperiencesQuery = (): ExperiencesQuery => {
       ) {
         nodes {
           frontmatter {
-            startDate
-            endDate
+            startDate(formatString: "MMM, YYYY")
+            endDate(formatString: "MMM, YYYY")
             company
             job
             website

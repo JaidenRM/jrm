@@ -7,11 +7,14 @@
 import React from "react";
 import { Layout } from "./src/components/layout";
 import { DefaultThemeProvider } from "./src/providers/theme";
+import { ModalProvider } from "./src/providers/modal";
 
 export const wrapPageElement = ({ element, props }) => {
   return (
     <DefaultThemeProvider>
-      <Layout {...props}>{element}</Layout>
+      <ModalProvider>
+        <Layout {...props}>{element}</Layout>
+      </ModalProvider>
     </DefaultThemeProvider>
   );
 };

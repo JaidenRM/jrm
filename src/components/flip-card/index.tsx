@@ -35,7 +35,9 @@ export const FlipCard: React.FC<FlipCardProps> = ({
           <S.Card isFront>
             {hasInteractivity && (
               <S.ActionsWrapper>
-                <S.ShakeIcon icon={faFile} onClick={onFlip} />
+                <S.FlipIconWrapper onClick={onFlip}>
+                  <S.FlipIcon icon={faFile} />
+                </S.FlipIconWrapper>
               </S.ActionsWrapper>
             )}
             <S.ChildWrapper>{childArr[0]}</S.ChildWrapper>
@@ -47,7 +49,9 @@ export const FlipCard: React.FC<FlipCardProps> = ({
           <S.Card isFront={false}>
             {hasInteractivity && (
               <S.ActionsWrapper>
-                <S.ShakeIcon icon={faFile} onClick={onFlip} />
+                <S.FlipIconWrapper onClick={onFlip}>
+                  <S.FlipIcon icon={faFile} />
+                </S.FlipIconWrapper>
               </S.ActionsWrapper>
             )}
             <S.ChildWrapper>{childArr[1]}</S.ChildWrapper>

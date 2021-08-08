@@ -2,15 +2,20 @@ import styled from "styled-components";
 import { Link as LinkScroll } from "react-scroll";
 
 interface NavProps {
-  isNavScrolling?: boolean;
+  isScrolling?: boolean;
+  isVisible: boolean;
 }
 
 export const Nav = styled.nav<NavProps>`
-  background: ${({ isNavScrolling }) =>
-    isNavScrolling ? "#000" : "transparent"};
+  background: ${({ isScrolling, theme }) =>
+    isScrolling ? theme.colors.secondary.normal.bg : "transparent"};
+  border-bottom: ${({ isScrolling, theme }) =>
+    isScrolling ? `1px solid ${theme.colors.text}` : "none"};
   height: 80px;
-  transition: background-color 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out, visibility 1s, opacity 1s ease-in-out;
   display: flex;
+  opacity: ${({ isVisible }) => (isVisible ? "1" : "0")};
+  visibility: ${({ isVisible }) => (isVisible ? "visible" : "hidden")};
   justify-content: center;
   align-items: center;
   font-size: 1rem;
@@ -25,58 +30,76 @@ export const Nav = styled.nav<NavProps>`
 
 export const NavContainer = styled.div`
   display: flex;
-  justify-content: center;
   height: 80px;
   z-index: 1;
   width: 100%;
-  padding: 0 24px;
+  padding: 0 2rem;
   max-width: 1100px;
 `;
 
 export const NavMobileWrapper = styled.div`
   display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(-100%, 60%);
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: ${({ theme }) => theme.colors.text};
 
-  @media screen and (max-width: 768px) {
-    display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    transform: translate(-100%, 60%);
-    font-size: 1.8rem;
-    cursor: pointer;
-    color: #fff;
-  }
+  ${({ theme }) => `
+    @media screen and (max-width: ${theme.media.tablets}) {
+      display: block;
+    }
+  `};
 `;
 
-export const ThemeWrapper = styled.div``;
+export const NavLeftWrapper = styled.div`
+  margin: auto 0;
+  flex: 1 1;
+`;
+
+export const NavRightWrapper = styled.div`
+  flex: 1 1;
+`;
 
 export const NavMenu = styled.ul`
-  display: flex;
-  align-items: center;
+  display: none;
   list-style: none;
-  text-align: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
   height: 100%;
+  flex: 1;
 
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
+  ${({ theme }) => `
+    @media screen and (min-width: ${theme.media.tablets}) {
+      display: flex;
+    }
+  `};
 `;
 
 export const NavMenuItem = styled.li`
   height: 100%;
-  margin: auto;
+  margin: 0 1rem;
 `;
 
 export const NavLinks = styled(LinkScroll)`
-  color: #fff;
+  color: ${({ theme }) => theme.colors.text};
+  font-family: ${({ theme }) => theme.font.header};
   display: flex;
   align-items: center;
   text-decoration: none;
   padding: 0 1rem;
   height: 100%;
   cursor: pointer;
+  transition: color 1s ease;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary.normal.bg};
+  }
 
   &.active {
-    border-bottom: 4px solid #01bf71;
+    border-bottom: 4px solid ${({ theme }) => theme.colors.primary.normal.bg};
   }
 `;

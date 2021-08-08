@@ -1,16 +1,17 @@
 import styled from "styled-components";
 import { Link as LinkScroll } from "react-scroll";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { NAV_OPTIONS } from "../../utils/constants/nav";
+
+const navOptsLen = Object.keys(NAV_OPTIONS).length;
 
 export const TopbarContainer = styled.aside<{ isOpen: boolean }>`
   position: fixed;
   z-index: ${({ theme }) => theme.zindex.topbar};
   width: 100%;
   height: 100%;
-  background: #0d0d0d;
+  background: ${({ theme }) => theme.colors.body};
   display: grid;
   align-items: center;
-  top: 0;
   left: 0;
   transition: 0.3s ease-in-out;
   opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
@@ -25,17 +26,17 @@ export const IconWrapper = styled.div`
   font-size: 2rem;
   cursor: pointer;
   outline: none;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.text};
 `;
 export const TopbarMenuWrapper = styled.div`
-  color: #fff;
+  color: ${({ theme }) => theme.colors.text};
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(6, 80px);
+  grid-template-rows: repeat(${navOptsLen}, 80px);
   text-align: center;
 
   @media screen and (max-width: 480px) {
-    grid-template-rows: repeat(6, 60px);
+    grid-template-rows: repeat(${navOptsLen}, 60px);
   }
 `;
 
@@ -47,11 +48,11 @@ export const TopbarLink = styled(LinkScroll)`
   text-decoration: none;
   list-style-type: none;
   transition: 0.2s ease-in-out;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.text};
   cursor: pointer;
 
   &:hover {
-    color: #01bf71;
+    color: ${({ theme }) => theme.colors.primary.normal.bg};
     transition: 0.2s ease-in-out;
   }
 `;
