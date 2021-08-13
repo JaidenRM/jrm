@@ -1,7 +1,7 @@
 import React from "react";
 import map from "lodash/map";
 import random from "lodash/random";
-import { GatsbyImage } from "gatsby-plugin-image";
+import { GatsbyImage, getImage, IGatsbyImageData } from "gatsby-plugin-image";
 import * as S from "./index.styled";
 import { useModalContext } from "../../../providers/modal";
 import { useFetchRedditQuery } from "../../../graphql/queries/reddit";
@@ -70,6 +70,10 @@ export const AboutSection: React.FC<AboutProps> = ({ id, enterLeft }) => {
   const onClose = () => modalHandlers.setDisplay(false);
   const onClickHandler = () => {
     const post = edges[random(0, edges.length - 1)].node;
+    const image = getImage(post.remoteImage as IGatsbyImageData);
+
+    if (!image) return;
+
     const PostModal = (
       <FullScreenModal
         stackedElement={getTextBox(
@@ -79,8 +83,7 @@ export const AboutSection: React.FC<AboutProps> = ({ id, enterLeft }) => {
         onClose={onClose}
       >
         <GatsbyImage
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          image={post.remoteImage?.childImageSharp?.gatsbyImageData}
+          image={image}
           alt="hi"
           imgStyle={{ objectFit: "contain" }}
           style={{ height: "100%", width: "100%" }}
