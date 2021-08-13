@@ -41,6 +41,15 @@ module.exports = {
       },
     },
     `gatsby-transformer-remark`,
+    {
+      resolve: `fetch-reddit-plugin`,
+      options: {
+        subreddit: `softwaregore`,
+        limit: 100,
+        sortedBy: `hot`,
+        allowOver18: false,
+      },
+    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-graphql-codegen`,
     {
