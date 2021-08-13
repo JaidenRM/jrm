@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { ReactScrollContainer } from "../../react-scroll-container";
+import { PrimaryButton } from "../../shared/buttons.styled";
 
 export const Section = styled.section``;
 
@@ -29,12 +30,28 @@ export const MainHeader = styled.h1`
   `}
 `;
 
+export const Footer = styled.div``;
+
 export const Body = styled.div``;
 
 export const BodyParagraph = styled.p``;
 
+export const Link = styled.a``;
+
 export const TechnologyList = styled.ul`
   columns: 2;
+`;
+
+export const ShowcaseButton = styled(PrimaryButton)`
+  margin: auto;
+  margin-top: 2rem;
+
+  ${({ theme }) => `
+    @media screen and (min-width: ${theme.media.phones}) {
+      margin: 0;
+      margin-top: 2rem;
+    }
+  `}
 `;
 
 export const TechnologyListItem = styled.li``;
