@@ -1,0 +1,73 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styled from "styled-components";
+import { shakeAnim } from "../shared/animations.styled";
+
+export const Container = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: ${({ theme }) => theme.zindex.carousel.fullScreen};
+`;
+
+export const ChildWrapper = styled.div`
+  max-width: 1100px;
+  max-height: 621px;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+export const CloseIcon = styled.div`
+  position: fixed;
+  display: flex;
+  padding: 0.4rem 1rem;
+  border-radius: 50%;
+  right: 1rem;
+  top: 1rem;
+  font-size: 4rem;
+  z-index: ${({ theme }) => theme.zindex.carousel.fullScreen + 1};
+  background: ${({ theme }) => theme.colors.body};
+
+  &:hover {
+    animation: ${shakeAnim} 3.5s ease-in-out infinite;
+    cursor: pointer;
+  }
+`;
+
+export const StackedElementContainer = styled.div`
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  bottom: 1rem;
+  z-index: ${({ theme }) => theme.zindex.carousel.fullScreen + 1};
+  background: ${({ theme }) => theme.colors.body};
+  border: 1px solid ${({ theme }) => theme.colors.text};
+  text-align: center;
+  left: 50%;
+  max-width: 80%;
+  transform: translateX(-50%);
+`;
+
+export const StackedElement = styled.div`
+  padding: 2rem 4rem;
+  flex: 1;
+`;
+
+export const StackedElementActions = styled.div`
+  flex: 1;
+  align-self: flex-end;
+  padding-right: 1.5rem;
+`;
+
+export const HoveredIcon = styled(FontAwesomeIcon)`
+  &:hover {
+    cursor: pointer;
+    color: ${({ theme }) => theme.colors.primary.normal.bg};
+    transition: color 0.5s ease-in-out;
+  }
+`;
