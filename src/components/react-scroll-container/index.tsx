@@ -1,4 +1,8 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { faAngleDoubleUp } from "@fortawesome/free-solid-svg-icons";
+import isString from "lodash/isString";
 import * as S from "./index.styled";
 import * as SBtn from "../shared/buttons.styled";
 
@@ -33,7 +37,7 @@ interface FadeScrollAnimationOptions {
 
 interface ReactScrollContainerProps {
   className?: string;
-  buttonLabel?: string;
+  buttonLabel?: string | IconProp;
   scrollOptions: ScrollToOptions;
   scrollAnimOptions?: FadeScrollAnimationOptions;
 }
@@ -41,7 +45,7 @@ interface ReactScrollContainerProps {
 export const ReactScrollContainer: React.FC<ReactScrollContainerProps> = ({
   className,
   children,
-  buttonLabel = "Go top",
+  buttonLabel = faAngleDoubleUp,
   scrollOptions,
   scrollAnimOptions = {
     direction: "left",
@@ -65,7 +69,11 @@ export const ReactScrollContainer: React.FC<ReactScrollContainerProps> = ({
             smooth
             spy
           >
-            {buttonLabel}
+            {isString(buttonLabel) ? (
+              buttonLabel
+            ) : (
+              <FontAwesomeIcon icon={buttonLabel} size="2x" />
+            )}
           </SBtn.PrimaryLinkScrollButton>
         </S.ButtonWrapper>
       </>

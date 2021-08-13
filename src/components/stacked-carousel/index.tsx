@@ -6,27 +6,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronRight,
   faChevronLeft,
-  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import * as S from "./index.styled";
 import { useStackedCarouselData } from "../../@hooks/use-stacked-carousel-data";
 import { useModalContext } from "../../providers/modal";
+import { FullScreenModal } from "../full-screen-modal";
 
 interface StackedCarouselProps {
   visibleItems: number;
 }
-
-const getFullScreenContainer = (
-  child: React.ReactNode,
-  onClose: () => void
-) => (
-  <S.FullScreenContainer>
-    <S.FullScreenCloseIcon onClick={onClose}>
-      <FontAwesomeIcon icon={faTimes} />
-    </S.FullScreenCloseIcon>
-    <S.FullScreenChildWrapper>{child}</S.FullScreenChildWrapper>
-  </S.FullScreenContainer>
-);
 
 export const StackedCarousel: React.FC<StackedCarouselProps> = ({
   children,
@@ -67,7 +55,12 @@ export const StackedCarousel: React.FC<StackedCarouselProps> = ({
                     isShowing={idx < visibleItems}
                     onClick={() => {
                       if (idx === 0) {
-                        setChild(getFullScreenContainer(child, onClose), true);
+                        setChild(
+                          <FullScreenModal onClose={onClose}>
+                            {child}
+                          </FullScreenModal>,
+                          true
+                        );
                         setTimerPause(true);
                       }
                     }}

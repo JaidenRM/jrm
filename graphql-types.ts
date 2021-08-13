@@ -65,6 +65,7 @@ export type File = Node & {
   birthtimeMs?: Maybe<Scalars['Float']>;
   blksize?: Maybe<Scalars['Int']>;
   blocks?: Maybe<Scalars['Int']>;
+  url?: Maybe<Scalars['String']>;
   /** Copy file to static directory and return public url to it */
   publicURL?: Maybe<Scalars['String']>;
   /** Returns all children nodes filtered by type Mdx */
@@ -690,10 +691,10 @@ export type Frontmatter = {
   images?: Maybe<Array<Maybe<File>>>;
   title?: Maybe<Scalars['String']>;
   startDate?: Maybe<Scalars['Date']>;
+  endDate?: Maybe<Scalars['Date']>;
   company?: Maybe<Scalars['String']>;
   job?: Maybe<Scalars['String']>;
   website?: Maybe<Scalars['String']>;
-  endDate?: Maybe<Scalars['Date']>;
   date?: Maybe<Scalars['Date']>;
   name?: Maybe<Scalars['String']>;
   status?: Maybe<Scalars['String']>;
@@ -764,6 +765,10 @@ export type SitePluginPluginOptions = {
   root?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   path?: Maybe<Scalars['String']>;
+  subreddit?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  sortedBy?: Maybe<Scalars['String']>;
+  allowOver18?: Maybe<Scalars['Boolean']>;
   defaults?: Maybe<SitePluginPluginOptionsDefaults>;
   base64Width?: Maybe<Scalars['Int']>;
   stripMetadata?: Maybe<Scalars['Boolean']>;
@@ -837,6 +842,27 @@ export type SiteBuildMetadataBuildTimeArgs = {
   locale?: Maybe<Scalars['String']>;
 };
 
+export type RedditPost = Node & {
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+  img?: Maybe<RedditPostImg>;
+  url?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  createdTimestampUtc?: Maybe<Scalars['Int']>;
+  postedBy?: Maybe<Scalars['String']>;
+  upVotes?: Maybe<Scalars['Int']>;
+  downVotes?: Maybe<Scalars['Int']>;
+  remoteImage?: Maybe<File>;
+};
+
+export type RedditPostImg = {
+  url?: Maybe<Scalars['String']>;
+  height?: Maybe<Scalars['Int']>;
+  width?: Maybe<Scalars['Int']>;
+};
+
 export type Query = {
   file?: Maybe<File>;
   allFile: FileConnection;
@@ -858,6 +884,8 @@ export type Query = {
   allSitePlugin: SitePluginConnection;
   siteBuildMetadata?: Maybe<SiteBuildMetadata>;
   allSiteBuildMetadata: SiteBuildMetadataConnection;
+  redditPost?: Maybe<RedditPost>;
+  allRedditPost: RedditPostConnection;
 };
 
 
@@ -895,6 +923,7 @@ export type QueryFileArgs = {
   birthtimeMs?: Maybe<FloatQueryOperatorInput>;
   blksize?: Maybe<IntQueryOperatorInput>;
   blocks?: Maybe<IntQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
   publicURL?: Maybe<StringQueryOperatorInput>;
   childrenMdx?: Maybe<MdxFilterListInput>;
   childMdx?: Maybe<MdxFilterInput>;
@@ -1147,6 +1176,30 @@ export type QueryAllSiteBuildMetadataArgs = {
   limit?: Maybe<Scalars['Int']>;
 };
 
+
+export type QueryRedditPostArgs = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  img?: Maybe<RedditPostImgFilterInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  createdTimestampUtc?: Maybe<IntQueryOperatorInput>;
+  postedBy?: Maybe<StringQueryOperatorInput>;
+  upVotes?: Maybe<IntQueryOperatorInput>;
+  downVotes?: Maybe<IntQueryOperatorInput>;
+  remoteImage?: Maybe<FileFilterInput>;
+};
+
+
+export type QueryAllRedditPostArgs = {
+  filter?: Maybe<RedditPostFilterInput>;
+  sort?: Maybe<RedditPostSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
 export type StringQueryOperatorInput = {
   eq?: Maybe<Scalars['String']>;
   ne?: Maybe<Scalars['String']>;
@@ -1216,10 +1269,10 @@ export type FrontmatterFilterInput = {
   images?: Maybe<FileFilterListInput>;
   title?: Maybe<StringQueryOperatorInput>;
   startDate?: Maybe<DateQueryOperatorInput>;
+  endDate?: Maybe<DateQueryOperatorInput>;
   company?: Maybe<StringQueryOperatorInput>;
   job?: Maybe<StringQueryOperatorInput>;
   website?: Maybe<StringQueryOperatorInput>;
-  endDate?: Maybe<DateQueryOperatorInput>;
   date?: Maybe<DateQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
   status?: Maybe<StringQueryOperatorInput>;
@@ -1266,6 +1319,7 @@ export type FileFilterInput = {
   birthtimeMs?: Maybe<FloatQueryOperatorInput>;
   blksize?: Maybe<IntQueryOperatorInput>;
   blocks?: Maybe<IntQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
   publicURL?: Maybe<StringQueryOperatorInput>;
   childrenMdx?: Maybe<MdxFilterListInput>;
   childMdx?: Maybe<MdxFilterInput>;
@@ -1478,6 +1532,7 @@ export type FileFieldsEnum =
   | 'birthtimeMs'
   | 'blksize'
   | 'blocks'
+  | 'url'
   | 'publicURL'
   | 'childrenMdx'
   | 'childrenMdx___rawBody'
@@ -1516,6 +1571,7 @@ export type FileFieldsEnum =
   | 'childrenMdx___frontmatter___images___birthtimeMs'
   | 'childrenMdx___frontmatter___images___blksize'
   | 'childrenMdx___frontmatter___images___blocks'
+  | 'childrenMdx___frontmatter___images___url'
   | 'childrenMdx___frontmatter___images___publicURL'
   | 'childrenMdx___frontmatter___images___childrenMdx'
   | 'childrenMdx___frontmatter___images___childrenImageSharp'
@@ -1523,10 +1579,10 @@ export type FileFieldsEnum =
   | 'childrenMdx___frontmatter___images___children'
   | 'childrenMdx___frontmatter___title'
   | 'childrenMdx___frontmatter___startDate'
+  | 'childrenMdx___frontmatter___endDate'
   | 'childrenMdx___frontmatter___company'
   | 'childrenMdx___frontmatter___job'
   | 'childrenMdx___frontmatter___website'
-  | 'childrenMdx___frontmatter___endDate'
   | 'childrenMdx___frontmatter___date'
   | 'childrenMdx___frontmatter___name'
   | 'childrenMdx___frontmatter___status'
@@ -1620,6 +1676,7 @@ export type FileFieldsEnum =
   | 'childMdx___frontmatter___images___birthtimeMs'
   | 'childMdx___frontmatter___images___blksize'
   | 'childMdx___frontmatter___images___blocks'
+  | 'childMdx___frontmatter___images___url'
   | 'childMdx___frontmatter___images___publicURL'
   | 'childMdx___frontmatter___images___childrenMdx'
   | 'childMdx___frontmatter___images___childrenImageSharp'
@@ -1627,10 +1684,10 @@ export type FileFieldsEnum =
   | 'childMdx___frontmatter___images___children'
   | 'childMdx___frontmatter___title'
   | 'childMdx___frontmatter___startDate'
+  | 'childMdx___frontmatter___endDate'
   | 'childMdx___frontmatter___company'
   | 'childMdx___frontmatter___job'
   | 'childMdx___frontmatter___website'
-  | 'childMdx___frontmatter___endDate'
   | 'childMdx___frontmatter___date'
   | 'childMdx___frontmatter___name'
   | 'childMdx___frontmatter___status'
@@ -2536,6 +2593,10 @@ export type SitePluginPluginOptionsFilterInput = {
   root?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
   path?: Maybe<StringQueryOperatorInput>;
+  subreddit?: Maybe<StringQueryOperatorInput>;
+  limit?: Maybe<IntQueryOperatorInput>;
+  sortedBy?: Maybe<StringQueryOperatorInput>;
+  allowOver18?: Maybe<BooleanQueryOperatorInput>;
   defaults?: Maybe<SitePluginPluginOptionsDefaultsFilterInput>;
   base64Width?: Maybe<IntQueryOperatorInput>;
   stripMetadata?: Maybe<BooleanQueryOperatorInput>;
@@ -2805,6 +2866,10 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___root'
   | 'pluginCreator___pluginOptions___name'
   | 'pluginCreator___pluginOptions___path'
+  | 'pluginCreator___pluginOptions___subreddit'
+  | 'pluginCreator___pluginOptions___limit'
+  | 'pluginCreator___pluginOptions___sortedBy'
+  | 'pluginCreator___pluginOptions___allowOver18'
   | 'pluginCreator___pluginOptions___defaults___quality'
   | 'pluginCreator___pluginOptions___defaults___formats'
   | 'pluginCreator___pluginOptions___defaults___placeholder'
@@ -2961,6 +3026,7 @@ export type MdxFieldsEnum =
   | 'frontmatter___images___birthtimeMs'
   | 'frontmatter___images___blksize'
   | 'frontmatter___images___blocks'
+  | 'frontmatter___images___url'
   | 'frontmatter___images___publicURL'
   | 'frontmatter___images___childrenMdx'
   | 'frontmatter___images___childrenMdx___rawBody'
@@ -3010,10 +3076,10 @@ export type MdxFieldsEnum =
   | 'frontmatter___images___internal___type'
   | 'frontmatter___title'
   | 'frontmatter___startDate'
+  | 'frontmatter___endDate'
   | 'frontmatter___company'
   | 'frontmatter___job'
   | 'frontmatter___website'
-  | 'frontmatter___endDate'
   | 'frontmatter___date'
   | 'frontmatter___name'
   | 'frontmatter___status'
@@ -3660,6 +3726,10 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___root'
   | 'pluginOptions___name'
   | 'pluginOptions___path'
+  | 'pluginOptions___subreddit'
+  | 'pluginOptions___limit'
+  | 'pluginOptions___sortedBy'
+  | 'pluginOptions___allowOver18'
   | 'pluginOptions___defaults___quality'
   | 'pluginOptions___defaults___formats'
   | 'pluginOptions___defaults___placeholder'
@@ -3874,6 +3944,434 @@ export type SiteBuildMetadataSortInput = {
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
+export type RedditPostImgFilterInput = {
+  url?: Maybe<StringQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+};
+
+export type RedditPostConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<RedditPostEdge>;
+  nodes: Array<RedditPost>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<RedditPostGroupConnection>;
+};
+
+
+export type RedditPostConnectionDistinctArgs = {
+  field: RedditPostFieldsEnum;
+};
+
+
+export type RedditPostConnectionMaxArgs = {
+  field: RedditPostFieldsEnum;
+};
+
+
+export type RedditPostConnectionMinArgs = {
+  field: RedditPostFieldsEnum;
+};
+
+
+export type RedditPostConnectionSumArgs = {
+  field: RedditPostFieldsEnum;
+};
+
+
+export type RedditPostConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: RedditPostFieldsEnum;
+};
+
+export type RedditPostEdge = {
+  next?: Maybe<RedditPost>;
+  node: RedditPost;
+  previous?: Maybe<RedditPost>;
+};
+
+export type RedditPostFieldsEnum =
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type'
+  | 'img___url'
+  | 'img___height'
+  | 'img___width'
+  | 'url'
+  | 'title'
+  | 'createdTimestampUtc'
+  | 'postedBy'
+  | 'upVotes'
+  | 'downVotes'
+  | 'remoteImage___sourceInstanceName'
+  | 'remoteImage___absolutePath'
+  | 'remoteImage___relativePath'
+  | 'remoteImage___extension'
+  | 'remoteImage___size'
+  | 'remoteImage___prettySize'
+  | 'remoteImage___modifiedTime'
+  | 'remoteImage___accessTime'
+  | 'remoteImage___changeTime'
+  | 'remoteImage___birthTime'
+  | 'remoteImage___root'
+  | 'remoteImage___dir'
+  | 'remoteImage___base'
+  | 'remoteImage___ext'
+  | 'remoteImage___name'
+  | 'remoteImage___relativeDirectory'
+  | 'remoteImage___dev'
+  | 'remoteImage___mode'
+  | 'remoteImage___nlink'
+  | 'remoteImage___uid'
+  | 'remoteImage___gid'
+  | 'remoteImage___rdev'
+  | 'remoteImage___ino'
+  | 'remoteImage___atimeMs'
+  | 'remoteImage___mtimeMs'
+  | 'remoteImage___ctimeMs'
+  | 'remoteImage___atime'
+  | 'remoteImage___mtime'
+  | 'remoteImage___ctime'
+  | 'remoteImage___birthtime'
+  | 'remoteImage___birthtimeMs'
+  | 'remoteImage___blksize'
+  | 'remoteImage___blocks'
+  | 'remoteImage___url'
+  | 'remoteImage___publicURL'
+  | 'remoteImage___childrenMdx'
+  | 'remoteImage___childrenMdx___rawBody'
+  | 'remoteImage___childrenMdx___fileAbsolutePath'
+  | 'remoteImage___childrenMdx___frontmatter___images'
+  | 'remoteImage___childrenMdx___frontmatter___title'
+  | 'remoteImage___childrenMdx___frontmatter___startDate'
+  | 'remoteImage___childrenMdx___frontmatter___endDate'
+  | 'remoteImage___childrenMdx___frontmatter___company'
+  | 'remoteImage___childrenMdx___frontmatter___job'
+  | 'remoteImage___childrenMdx___frontmatter___website'
+  | 'remoteImage___childrenMdx___frontmatter___date'
+  | 'remoteImage___childrenMdx___frontmatter___name'
+  | 'remoteImage___childrenMdx___frontmatter___status'
+  | 'remoteImage___childrenMdx___frontmatter___repo'
+  | 'remoteImage___childrenMdx___frontmatter___url'
+  | 'remoteImage___childrenMdx___frontmatter___tags'
+  | 'remoteImage___childrenMdx___slug'
+  | 'remoteImage___childrenMdx___body'
+  | 'remoteImage___childrenMdx___excerpt'
+  | 'remoteImage___childrenMdx___headings'
+  | 'remoteImage___childrenMdx___headings___value'
+  | 'remoteImage___childrenMdx___headings___depth'
+  | 'remoteImage___childrenMdx___html'
+  | 'remoteImage___childrenMdx___mdxAST'
+  | 'remoteImage___childrenMdx___tableOfContents'
+  | 'remoteImage___childrenMdx___timeToRead'
+  | 'remoteImage___childrenMdx___wordCount___paragraphs'
+  | 'remoteImage___childrenMdx___wordCount___sentences'
+  | 'remoteImage___childrenMdx___wordCount___words'
+  | 'remoteImage___childrenMdx___id'
+  | 'remoteImage___childrenMdx___parent___id'
+  | 'remoteImage___childrenMdx___parent___children'
+  | 'remoteImage___childrenMdx___children'
+  | 'remoteImage___childrenMdx___children___id'
+  | 'remoteImage___childrenMdx___children___children'
+  | 'remoteImage___childrenMdx___internal___content'
+  | 'remoteImage___childrenMdx___internal___contentDigest'
+  | 'remoteImage___childrenMdx___internal___description'
+  | 'remoteImage___childrenMdx___internal___fieldOwners'
+  | 'remoteImage___childrenMdx___internal___ignoreType'
+  | 'remoteImage___childrenMdx___internal___mediaType'
+  | 'remoteImage___childrenMdx___internal___owner'
+  | 'remoteImage___childrenMdx___internal___type'
+  | 'remoteImage___childMdx___rawBody'
+  | 'remoteImage___childMdx___fileAbsolutePath'
+  | 'remoteImage___childMdx___frontmatter___images'
+  | 'remoteImage___childMdx___frontmatter___title'
+  | 'remoteImage___childMdx___frontmatter___startDate'
+  | 'remoteImage___childMdx___frontmatter___endDate'
+  | 'remoteImage___childMdx___frontmatter___company'
+  | 'remoteImage___childMdx___frontmatter___job'
+  | 'remoteImage___childMdx___frontmatter___website'
+  | 'remoteImage___childMdx___frontmatter___date'
+  | 'remoteImage___childMdx___frontmatter___name'
+  | 'remoteImage___childMdx___frontmatter___status'
+  | 'remoteImage___childMdx___frontmatter___repo'
+  | 'remoteImage___childMdx___frontmatter___url'
+  | 'remoteImage___childMdx___frontmatter___tags'
+  | 'remoteImage___childMdx___slug'
+  | 'remoteImage___childMdx___body'
+  | 'remoteImage___childMdx___excerpt'
+  | 'remoteImage___childMdx___headings'
+  | 'remoteImage___childMdx___headings___value'
+  | 'remoteImage___childMdx___headings___depth'
+  | 'remoteImage___childMdx___html'
+  | 'remoteImage___childMdx___mdxAST'
+  | 'remoteImage___childMdx___tableOfContents'
+  | 'remoteImage___childMdx___timeToRead'
+  | 'remoteImage___childMdx___wordCount___paragraphs'
+  | 'remoteImage___childMdx___wordCount___sentences'
+  | 'remoteImage___childMdx___wordCount___words'
+  | 'remoteImage___childMdx___id'
+  | 'remoteImage___childMdx___parent___id'
+  | 'remoteImage___childMdx___parent___children'
+  | 'remoteImage___childMdx___children'
+  | 'remoteImage___childMdx___children___id'
+  | 'remoteImage___childMdx___children___children'
+  | 'remoteImage___childMdx___internal___content'
+  | 'remoteImage___childMdx___internal___contentDigest'
+  | 'remoteImage___childMdx___internal___description'
+  | 'remoteImage___childMdx___internal___fieldOwners'
+  | 'remoteImage___childMdx___internal___ignoreType'
+  | 'remoteImage___childMdx___internal___mediaType'
+  | 'remoteImage___childMdx___internal___owner'
+  | 'remoteImage___childMdx___internal___type'
+  | 'remoteImage___childrenImageSharp'
+  | 'remoteImage___childrenImageSharp___fixed___base64'
+  | 'remoteImage___childrenImageSharp___fixed___tracedSVG'
+  | 'remoteImage___childrenImageSharp___fixed___aspectRatio'
+  | 'remoteImage___childrenImageSharp___fixed___width'
+  | 'remoteImage___childrenImageSharp___fixed___height'
+  | 'remoteImage___childrenImageSharp___fixed___src'
+  | 'remoteImage___childrenImageSharp___fixed___srcSet'
+  | 'remoteImage___childrenImageSharp___fixed___srcWebp'
+  | 'remoteImage___childrenImageSharp___fixed___srcSetWebp'
+  | 'remoteImage___childrenImageSharp___fixed___originalName'
+  | 'remoteImage___childrenImageSharp___fluid___base64'
+  | 'remoteImage___childrenImageSharp___fluid___tracedSVG'
+  | 'remoteImage___childrenImageSharp___fluid___aspectRatio'
+  | 'remoteImage___childrenImageSharp___fluid___src'
+  | 'remoteImage___childrenImageSharp___fluid___srcSet'
+  | 'remoteImage___childrenImageSharp___fluid___srcWebp'
+  | 'remoteImage___childrenImageSharp___fluid___srcSetWebp'
+  | 'remoteImage___childrenImageSharp___fluid___sizes'
+  | 'remoteImage___childrenImageSharp___fluid___originalImg'
+  | 'remoteImage___childrenImageSharp___fluid___originalName'
+  | 'remoteImage___childrenImageSharp___fluid___presentationWidth'
+  | 'remoteImage___childrenImageSharp___fluid___presentationHeight'
+  | 'remoteImage___childrenImageSharp___gatsbyImageData'
+  | 'remoteImage___childrenImageSharp___original___width'
+  | 'remoteImage___childrenImageSharp___original___height'
+  | 'remoteImage___childrenImageSharp___original___src'
+  | 'remoteImage___childrenImageSharp___resize___src'
+  | 'remoteImage___childrenImageSharp___resize___tracedSVG'
+  | 'remoteImage___childrenImageSharp___resize___width'
+  | 'remoteImage___childrenImageSharp___resize___height'
+  | 'remoteImage___childrenImageSharp___resize___aspectRatio'
+  | 'remoteImage___childrenImageSharp___resize___originalName'
+  | 'remoteImage___childrenImageSharp___id'
+  | 'remoteImage___childrenImageSharp___parent___id'
+  | 'remoteImage___childrenImageSharp___parent___children'
+  | 'remoteImage___childrenImageSharp___children'
+  | 'remoteImage___childrenImageSharp___children___id'
+  | 'remoteImage___childrenImageSharp___children___children'
+  | 'remoteImage___childrenImageSharp___internal___content'
+  | 'remoteImage___childrenImageSharp___internal___contentDigest'
+  | 'remoteImage___childrenImageSharp___internal___description'
+  | 'remoteImage___childrenImageSharp___internal___fieldOwners'
+  | 'remoteImage___childrenImageSharp___internal___ignoreType'
+  | 'remoteImage___childrenImageSharp___internal___mediaType'
+  | 'remoteImage___childrenImageSharp___internal___owner'
+  | 'remoteImage___childrenImageSharp___internal___type'
+  | 'remoteImage___childImageSharp___fixed___base64'
+  | 'remoteImage___childImageSharp___fixed___tracedSVG'
+  | 'remoteImage___childImageSharp___fixed___aspectRatio'
+  | 'remoteImage___childImageSharp___fixed___width'
+  | 'remoteImage___childImageSharp___fixed___height'
+  | 'remoteImage___childImageSharp___fixed___src'
+  | 'remoteImage___childImageSharp___fixed___srcSet'
+  | 'remoteImage___childImageSharp___fixed___srcWebp'
+  | 'remoteImage___childImageSharp___fixed___srcSetWebp'
+  | 'remoteImage___childImageSharp___fixed___originalName'
+  | 'remoteImage___childImageSharp___fluid___base64'
+  | 'remoteImage___childImageSharp___fluid___tracedSVG'
+  | 'remoteImage___childImageSharp___fluid___aspectRatio'
+  | 'remoteImage___childImageSharp___fluid___src'
+  | 'remoteImage___childImageSharp___fluid___srcSet'
+  | 'remoteImage___childImageSharp___fluid___srcWebp'
+  | 'remoteImage___childImageSharp___fluid___srcSetWebp'
+  | 'remoteImage___childImageSharp___fluid___sizes'
+  | 'remoteImage___childImageSharp___fluid___originalImg'
+  | 'remoteImage___childImageSharp___fluid___originalName'
+  | 'remoteImage___childImageSharp___fluid___presentationWidth'
+  | 'remoteImage___childImageSharp___fluid___presentationHeight'
+  | 'remoteImage___childImageSharp___gatsbyImageData'
+  | 'remoteImage___childImageSharp___original___width'
+  | 'remoteImage___childImageSharp___original___height'
+  | 'remoteImage___childImageSharp___original___src'
+  | 'remoteImage___childImageSharp___resize___src'
+  | 'remoteImage___childImageSharp___resize___tracedSVG'
+  | 'remoteImage___childImageSharp___resize___width'
+  | 'remoteImage___childImageSharp___resize___height'
+  | 'remoteImage___childImageSharp___resize___aspectRatio'
+  | 'remoteImage___childImageSharp___resize___originalName'
+  | 'remoteImage___childImageSharp___id'
+  | 'remoteImage___childImageSharp___parent___id'
+  | 'remoteImage___childImageSharp___parent___children'
+  | 'remoteImage___childImageSharp___children'
+  | 'remoteImage___childImageSharp___children___id'
+  | 'remoteImage___childImageSharp___children___children'
+  | 'remoteImage___childImageSharp___internal___content'
+  | 'remoteImage___childImageSharp___internal___contentDigest'
+  | 'remoteImage___childImageSharp___internal___description'
+  | 'remoteImage___childImageSharp___internal___fieldOwners'
+  | 'remoteImage___childImageSharp___internal___ignoreType'
+  | 'remoteImage___childImageSharp___internal___mediaType'
+  | 'remoteImage___childImageSharp___internal___owner'
+  | 'remoteImage___childImageSharp___internal___type'
+  | 'remoteImage___id'
+  | 'remoteImage___parent___id'
+  | 'remoteImage___parent___parent___id'
+  | 'remoteImage___parent___parent___children'
+  | 'remoteImage___parent___children'
+  | 'remoteImage___parent___children___id'
+  | 'remoteImage___parent___children___children'
+  | 'remoteImage___parent___internal___content'
+  | 'remoteImage___parent___internal___contentDigest'
+  | 'remoteImage___parent___internal___description'
+  | 'remoteImage___parent___internal___fieldOwners'
+  | 'remoteImage___parent___internal___ignoreType'
+  | 'remoteImage___parent___internal___mediaType'
+  | 'remoteImage___parent___internal___owner'
+  | 'remoteImage___parent___internal___type'
+  | 'remoteImage___children'
+  | 'remoteImage___children___id'
+  | 'remoteImage___children___parent___id'
+  | 'remoteImage___children___parent___children'
+  | 'remoteImage___children___children'
+  | 'remoteImage___children___children___id'
+  | 'remoteImage___children___children___children'
+  | 'remoteImage___children___internal___content'
+  | 'remoteImage___children___internal___contentDigest'
+  | 'remoteImage___children___internal___description'
+  | 'remoteImage___children___internal___fieldOwners'
+  | 'remoteImage___children___internal___ignoreType'
+  | 'remoteImage___children___internal___mediaType'
+  | 'remoteImage___children___internal___owner'
+  | 'remoteImage___children___internal___type'
+  | 'remoteImage___internal___content'
+  | 'remoteImage___internal___contentDigest'
+  | 'remoteImage___internal___description'
+  | 'remoteImage___internal___fieldOwners'
+  | 'remoteImage___internal___ignoreType'
+  | 'remoteImage___internal___mediaType'
+  | 'remoteImage___internal___owner'
+  | 'remoteImage___internal___type';
+
+export type RedditPostGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<RedditPostEdge>;
+  nodes: Array<RedditPost>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type RedditPostFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  img?: Maybe<RedditPostImgFilterInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  createdTimestampUtc?: Maybe<IntQueryOperatorInput>;
+  postedBy?: Maybe<StringQueryOperatorInput>;
+  upVotes?: Maybe<IntQueryOperatorInput>;
+  downVotes?: Maybe<IntQueryOperatorInput>;
+  remoteImage?: Maybe<FileFilterInput>;
+};
+
+export type RedditPostSortInput = {
+  fields?: Maybe<Array<Maybe<RedditPostFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
 export type Unnamed_1_QueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3902,6 +4400,14 @@ export type ProjectsQuery = { allMdx: { nodes: Array<(
         & { images?: Maybe<Array<Maybe<{ childImageSharp?: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }>>> }
       )> }
     )> } };
+
+export type FetchRedditQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FetchRedditQuery = { allRedditPost: { edges: Array<{ node: (
+        Pick<RedditPost, 'createdTimestampUtc' | 'downVotes' | 'id' | 'postedBy' | 'title' | 'upVotes' | 'url'>
+        & { img?: Maybe<Pick<RedditPostImg, 'height' | 'url' | 'width'>>, remoteImage?: Maybe<{ childImageSharp?: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }
+      ) }> } };
 
 export type Unnamed_2_QueryVariables = Exact<{ [key: string]: never; }>;
 

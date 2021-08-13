@@ -1,5 +1,4 @@
-import styled, { css, keyframes } from "styled-components";
-import { shakeAnim } from "../shared/animations.styled";
+import styled, { css } from "styled-components";
 
 const stackedDistance = "0.75rem";
 const carouselItemAnimCss = css`
@@ -121,43 +120,6 @@ export const CarouselNext = styled.div`
   `}
 
   &:hover {
-    cursor: pointer;
-  }
-`;
-
-export const FullScreenContainer = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: ${({ theme }) => theme.zindex.carousel.fullScreen};
-`;
-
-export const FullScreenChildWrapper = styled.div`
-  max-width: 1100px;
-  max-height: 621px;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
-
-export const FullScreenCloseIcon = styled.div`
-  position: fixed;
-  display: flex;
-  padding: 0.4rem 1rem;
-  border-radius: 50%;
-  right: 1rem;
-  top: 1rem;
-  font-size: 4rem;
-  z-index: ${({ theme }) => theme.zindex.carousel.fullScreen + 1};
-  background: ${({ theme }) => theme.colors.body};
-
-  &:hover {
-    animation: ${shakeAnim} 3.5s ease-in-out infinite;
     cursor: pointer;
   }
 `;
