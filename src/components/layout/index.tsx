@@ -7,6 +7,7 @@
 
 import React from "react";
 import { useModalContext } from "../../providers/modal";
+import { Footer } from "../footer";
 import { Navbar } from "../navbar";
 import { Topbar } from "../topbar";
 import * as S from "./index.styled";
@@ -31,7 +32,7 @@ export const Layout: React.FC = ({ children }) => {
         }}
       />
       <S.Main>{children}</S.Main>
-      <S.Footer>© {new Date().getFullYear()}, Built by Jaiden</S.Footer>
+      <Footer />
     </>
   );
 };
