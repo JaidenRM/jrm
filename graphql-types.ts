@@ -744,6 +744,7 @@ export type SitePlugin = Node & {
 };
 
 export type SitePluginPluginOptions = {
+  rule?: Maybe<SitePluginPluginOptionsRule>;
   displayName?: Maybe<Scalars['Boolean']>;
   fileName?: Maybe<Scalars['Boolean']>;
   minify?: Maybe<Scalars['Boolean']>;
@@ -790,6 +791,10 @@ export type SitePluginPluginOptions = {
   allExtensions?: Maybe<Scalars['Boolean']>;
   isTSX?: Maybe<Scalars['Boolean']>;
   jsxPragma?: Maybe<Scalars['String']>;
+};
+
+export type SitePluginPluginOptionsRule = {
+  include?: Maybe<Scalars['String']>;
 };
 
 export type SitePluginPluginOptionsDefaults = {
@@ -2572,6 +2577,7 @@ export type SitePluginFilterInput = {
 };
 
 export type SitePluginPluginOptionsFilterInput = {
+  rule?: Maybe<SitePluginPluginOptionsRuleFilterInput>;
   displayName?: Maybe<BooleanQueryOperatorInput>;
   fileName?: Maybe<BooleanQueryOperatorInput>;
   minify?: Maybe<BooleanQueryOperatorInput>;
@@ -2618,6 +2624,10 @@ export type SitePluginPluginOptionsFilterInput = {
   allExtensions?: Maybe<BooleanQueryOperatorInput>;
   isTSX?: Maybe<BooleanQueryOperatorInput>;
   jsxPragma?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePluginPluginOptionsRuleFilterInput = {
+  include?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePluginPluginOptionsDefaultsFilterInput = {
@@ -2845,6 +2855,7 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___resolve'
   | 'pluginCreator___name'
   | 'pluginCreator___version'
+  | 'pluginCreator___pluginOptions___rule___include'
   | 'pluginCreator___pluginOptions___displayName'
   | 'pluginCreator___pluginOptions___fileName'
   | 'pluginCreator___pluginOptions___minify'
@@ -3705,6 +3716,7 @@ export type SitePluginFieldsEnum =
   | 'resolve'
   | 'name'
   | 'version'
+  | 'pluginOptions___rule___include'
   | 'pluginOptions___displayName'
   | 'pluginOptions___fileName'
   | 'pluginOptions___minify'
