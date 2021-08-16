@@ -108,12 +108,12 @@ export const AboutSection: React.FC<AboutProps> = ({ id, enterLeft }) => {
         <S.Container>
           <S.MainHeader>This be me</S.MainHeader>
           <S.Body>
-            {map(paragraphs, para => (
-              <S.BodyParagraph>{para}</S.BodyParagraph>
+            {map(paragraphs, (para, idx) => (
+              <S.BodyParagraph key={idx}>{para}</S.BodyParagraph>
             ))}
             <S.TechnologyList>
-              {map(technologies, tech => (
-                <S.TechnologyListItem>{tech}</S.TechnologyListItem>
+              {map(technologies, (tech, idx) => (
+                <S.TechnologyListItem key={idx}>{tech}</S.TechnologyListItem>
               ))}
             </S.TechnologyList>
           </S.Body>

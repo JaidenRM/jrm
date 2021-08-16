@@ -15,7 +15,11 @@ export const SvgIcon = styled.img`
   width: 100%;
 `;
 
-export const IconWrapper = styled.a<IconWrapperProps>`
+export const IconWrapper = styled.div<IconWrapperProps>`
   height: ${({ iconSize: size }) => size};
   width: ${({ iconSize: size }) => size};
+`;
+
+export const IconLink = styled.a`
+  color: inherit;
 `;

@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
+import { Icon } from "../icon";
 import { shakeAnim } from "../shared/animations.styled";
 
 export const Container = styled.div`
@@ -22,10 +22,9 @@ export const ChildWrapper = styled.div`
   transform: translate(-50%, -50%);
 `;
 
-export const CloseIcon = styled.div`
+export const CloseIconWrapper = styled.div`
   position: fixed;
   display: flex;
-  padding: 0.4rem 1rem;
   border-radius: 50%;
   right: 1rem;
   top: 1rem;
@@ -37,6 +36,11 @@ export const CloseIcon = styled.div`
     animation: ${shakeAnim} 3.5s ease-in-out infinite;
     cursor: pointer;
   }
+`;
+
+export const CloseIcon = styled(Icon)`
+  display: flex;
+  padding: 0.5rem;
 `;
 
 export const StackedElementContainer = styled.div`
@@ -54,8 +58,13 @@ export const StackedElementContainer = styled.div`
 `;
 
 export const StackedElement = styled.div`
-  padding: 2rem 4rem;
+  padding: 0.5rem 4rem;
   flex: 1;
+`;
+
+export const StackedElementHeader = styled.h2`
+  font-size: 22px;
+  margin: 0;
 `;
 
 export const StackedElementActions = styled.div`
@@ -64,7 +73,9 @@ export const StackedElementActions = styled.div`
   padding-right: 1.5rem;
 `;
 
-export const HoveredIcon = styled(FontAwesomeIcon)`
+export const IconWrapper = styled.div``;
+
+export const HoveredIcon = styled(Icon)`
   &:hover {
     cursor: pointer;
     color: ${({ theme }) => theme.colors.primary.normal.bg};

@@ -1,5 +1,4 @@
 import { faTimes, faWindowMinimize } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import * as S from "./index.styled";
 
@@ -18,19 +17,21 @@ export const FullScreenModal: React.FC<FullScreenModalProps> = ({
 
   return (
     <S.Container>
-      <S.CloseIcon onClick={onClose}>
-        <FontAwesomeIcon icon={faTimes} />
-      </S.CloseIcon>
+      <S.CloseIconWrapper onClick={onClose}>
+        <S.CloseIcon icon={faTimes} />
+      </S.CloseIconWrapper>
       <S.ChildWrapper onClick={toggleStackedElement}>{children}</S.ChildWrapper>
       {stackedElement && showStackedElement && (
         <S.StackedElementContainer>
           <S.StackedElementActions>
-            <S.HoveredIcon
-              icon={faWindowMinimize}
-              onClick={toggleStackedElement}
-            />
+            <S.IconWrapper onClick={toggleStackedElement}>
+              <S.HoveredIcon icon={faWindowMinimize} size="2rem" />
+            </S.IconWrapper>
           </S.StackedElementActions>
-          <S.StackedElement>{stackedElement}</S.StackedElement>
+          <S.StackedElement>
+            <S.StackedElementHeader>r/Softwaregore</S.StackedElementHeader>
+            {stackedElement}
+          </S.StackedElement>
         </S.StackedElementContainer>
       )}
     </S.Container>

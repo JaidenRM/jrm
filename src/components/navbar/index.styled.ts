@@ -39,17 +39,14 @@ export const NavContainer = styled.div`
 
 export const NavMobileWrapper = styled.div`
   display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-  transform: translate(-100%, 60%);
-  font-size: 1.8rem;
   cursor: pointer;
   color: ${({ theme }) => theme.colors.text};
 
   ${({ theme }) => `
     @media screen and (max-width: ${theme.media.tablets}) {
-      display: block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   `};
 `;

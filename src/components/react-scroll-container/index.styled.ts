@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Fade } from "react-awesome-reveal";
+import { PrimaryLinkScrollButton } from "../shared/buttons.styled";
 
 export const FadeContainer = styled(Fade)`
   justify-content: center;
@@ -16,4 +17,8 @@ export const ButtonWrapper = styled.div`
   float: right;
   justify-self: flex-end;
   align-self: flex-end;
+`;
+
+export const PrimaryIconScrollButton = styled(PrimaryLinkScrollButton)`
+  padding: 0.5rem;
 `;

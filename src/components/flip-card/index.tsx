@@ -1,7 +1,15 @@
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { faFile } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
+import map from "lodash/map";
 import { CSSTransition } from "react-transition-group";
 import * as S from "./index.styled";
+import { Icon } from "../icon";
+
+export interface ActionProps {
+  icon: IconProp;
+  href?: string;
+}
 
 interface FlipCardProps {
   flippedClassName?: string;
@@ -9,6 +17,7 @@ interface FlipCardProps {
   isFlipped: boolean;
   onFlip?: () => void;
   hasInteractivity?: boolean;
+  extraActions?: ActionProps[];
 }
 
 export const FlipCard: React.FC<FlipCardProps> = ({
@@ -18,6 +27,7 @@ export const FlipCard: React.FC<FlipCardProps> = ({
   isFlipped,
   onFlip,
   hasInteractivity = false,
+  extraActions,
 }) => {
   const childArr = React.Children.toArray(children);
 
@@ -35,9 +45,20 @@ export const FlipCard: React.FC<FlipCardProps> = ({
           <S.Card isFront>
             {hasInteractivity && (
               <S.ActionsWrapper>
-                <S.FlipIconWrapper onClick={onFlip}>
-                  <S.FlipIcon icon={faFile} />
-                </S.FlipIconWrapper>
+                {extraActions && (
+                  <S.ExtraActionsContainer>
+                    {map(extraActions, (action, idx) => (
+                      <S.IconWrapper key={idx}>
+                        <Icon icon={action.icon} href={action.href} />
+                      </S.IconWrapper>
+                    ))}
+                  </S.ExtraActionsContainer>
+                )}
+                <S.DefaultActionsContainer>
+                  <S.FlipIconWrapper onClick={onFlip}>
+                    <S.FlipIcon icon={faFile} />
+                  </S.FlipIconWrapper>
+                </S.DefaultActionsContainer>
               </S.ActionsWrapper>
             )}
             <S.ChildWrapper>{childArr[0]}</S.ChildWrapper>
@@ -49,9 +70,20 @@ export const FlipCard: React.FC<FlipCardProps> = ({
           <S.Card isFront={false}>
             {hasInteractivity && (
               <S.ActionsWrapper>
-                <S.FlipIconWrapper onClick={onFlip}>
-                  <S.FlipIcon icon={faFile} />
-                </S.FlipIconWrapper>
+                {extraActions && (
+                  <S.ExtraActionsContainer>
+                    {map(extraActions, (action, idx) => (
+                      <S.IconWrapper key={idx}>
+                        <Icon icon={action.icon} href={action.href} />
+                      </S.IconWrapper>
+                    ))}
+                  </S.ExtraActionsContainer>
+                )}
+                <S.DefaultActionsContainer>
+                  <S.FlipIconWrapper onClick={onFlip}>
+                    <S.FlipIcon icon={faFile} />
+                  </S.FlipIconWrapper>
+                </S.DefaultActionsContainer>
               </S.ActionsWrapper>
             )}
             <S.ChildWrapper>{childArr[1]}</S.ChildWrapper>

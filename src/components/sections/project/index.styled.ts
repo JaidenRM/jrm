@@ -18,6 +18,27 @@ export const CardsContainer = styled.div`
   padding: 1rem 2rem;
 `;
 
+export const MainHeader = styled.div`
+  font-size: 36px;
+  margin: 2rem 0;
+  font-weight: bold;
+`;
+
+export const Subheader = styled.div`
+  font-size: 28px;
+  margin: 1rem 0;
+  font-weight: bold;
+`;
+
+export const Tags = styled.div`
+  font-size: 18px;
+  margin: 1rem 0;
+  font-weight: 600;
+  font-style: italic;
+`;
+
+export const Body = styled.div``;
+
 export const FlexedFlipCard = styled(FlipCard)`
   flex: 1 1 100%;
   min-height: 100%;

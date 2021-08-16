@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import map from "lodash/map";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import * as S from "./index.styled";
 import { NAV_OPTIONS } from "../../utils/constants/nav";
 import { ThemeSwitch } from "../theme-switch";
+import { Icon } from "../icon";
 
 interface NavbarProps {
   toggle: () => void;
@@ -76,7 +76,7 @@ export const Navbar: React.FC<NavbarProps> = ({ toggle }) => {
         </S.NavMenu>
         <S.NavRightWrapper />
         <S.NavMobileWrapper onClick={toggle}>
-          <FontAwesomeIcon icon={faBars} />
+          <Icon icon={faBars} />
         </S.NavMobileWrapper>
       </S.NavContainer>
     </S.Nav>
