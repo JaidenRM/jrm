@@ -40,14 +40,10 @@ export const HeroSection: React.FC<HeroProps> = ({ id }) => {
                   <CSSTransition
                     key={idx}
                     in={isPageLoaded}
-                    classNames="heroo-text"
+                    classNames="hero-text"
                     timeout={delay + 1250}
                   >
-                    <S.HeroTextItem
-                      style={{
-                        transitionDelay: `${delay}ms`,
-                      }}
-                    >
+                    <S.HeroTextItem delayMs={delay}>
                       {textElement}
                     </S.HeroTextItem>
                   </CSSTransition>

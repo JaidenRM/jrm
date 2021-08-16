@@ -2,22 +2,22 @@ import styled, { css } from "styled-components";
 import { GatsbyBackgroundImage } from "./gatsby-bg-image";
 
 const HeroTextAnimations = css`
-  .heroo-text-enter,
-  .heroo-text-appear {
+  .hero-text-enter,
+  .hero-text-appear {
     transform: translateX(-100%);
     opacity: 0;
   }
-  .heroo-text-enter-active,
-  .heroo-text-appear-active {
+  .hero-text-enter-active,
+  .hero-text-appear-active {
     opacity: 1;
     transform: translateX(0%);
     transition: all 1250ms ease-in-out;
   }
-  .heroo-text-exit {
+  .hero-text-exit {
     opacity: 1;
     transform: translateX(0%);
   }
-  .heroo-text-exit-active {
+  .hero-text-exit-active {
     opacity: 0;
     transform: translateX(-100%);
     transition: all 1000ms ease-in;
@@ -60,7 +60,9 @@ export const HeroContent = styled.div`
   flex-direction: column;
 `;
 
-export const HeroTextItem = styled.div``;
+export const HeroTextItem = styled.div<{ delayMs: number }>`
+  transition-delay: ${({ delayMs }) => `${delayMs}ms`} !important;
+`;
 
 export const BigHeroHeader = styled.h1`
   color: ${({ theme }) => theme.colors.text};
