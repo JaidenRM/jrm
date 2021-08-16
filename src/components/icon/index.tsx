@@ -8,17 +8,28 @@ interface IconProps {
   icon: IconType;
   href?: string;
   size?: string;
+  className?: string;
 }
 
-export const Icon: React.FC<IconProps> = ({ icon, size = "48px", href }) => {
+export const Icon: React.FC<IconProps> = ({
+  icon,
+  size = "48px",
+  href,
+  className,
+}) => {
   let Element;
 
   if (isString(icon)) Element = <S.SvgIcon src={icon} />;
   else Element = <S.FAIcon icon={icon} />;
 
   return (
-    <S.IconWrapper as={href ? undefined : "div"} href={href} iconSize={size}>
-      {Element}
+    <S.IconWrapper iconSize={size} className={className}>
+      {href && (
+        <S.IconLink href={href} target="_blank">
+          {Element}
+        </S.IconLink>
+      )}
+      {!href && Element}
     </S.IconWrapper>
   );
 };

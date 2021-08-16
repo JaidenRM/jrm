@@ -3,10 +3,12 @@ import map from "lodash/map";
 import join from "lodash/join";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import { GatsbyImage, getImage, IGatsbyImageData } from "gatsby-plugin-image";
+import { faFolder, faGlobeAsia } from "@fortawesome/free-solid-svg-icons";
 import { useProjectsQuery } from "../../../graphql/queries/projects";
 import { StackedCarousel } from "../../stacked-carousel";
 import * as S from "./index.styled";
 import { setInitialStateForAllFlipCards } from "../../../utils/flip-card";
+import { ActionProps } from "../../flip-card";
 
 interface ProjectProps {
   id: string;
@@ -43,7 +45,7 @@ export const ProjectSection: React.FC<ProjectProps> = ({ enterLeft, id }) => {
                 return (
                   image && (
                     <GatsbyImage
-                      alt="text"
+                      alt="Pictures related to this project"
                       image={image}
                       imgStyle={{ objectFit: "contain" }}
                       style={{ height: "100%", width: "100%" }}
@@ -55,11 +57,28 @@ export const ProjectSection: React.FC<ProjectProps> = ({ enterLeft, id }) => {
               return <></>;
             });
 
+            const extraActions: ActionProps[] = [];
+            const url = proj.frontmatter?.url;
+            const repo = proj.frontmatter?.repo;
+
+            if (url)
+              extraActions.push({
+                icon: faGlobeAsia,
+                href: url,
+              });
+
+            if (repo)
+              extraActions.push({
+                icon: faFolder,
+                href: repo,
+              });
+
             return (
               <S.FlexedFlipCard
                 key={idx}
                 flippedClassName="flipped-card"
                 isFlipped={!!flipCardStates[idx]}
+                extraActions={extraActions}
                 onFlip={() =>
                   setFlipCardStates(prev => ({
                     ...prev,
@@ -69,16 +88,18 @@ export const ProjectSection: React.FC<ProjectProps> = ({ enterLeft, id }) => {
                 hasInteractivity
               >
                 <S.FrontCard>
-                  <h1>{proj.frontmatter?.name}</h1>
-                  <h3>Status: {proj.frontmatter?.status}</h3>
-                  <h4>{join(proj.frontmatter?.tags, ", ")}</h4>
+                  <S.MainHeader>{proj.frontmatter?.name}</S.MainHeader>
+                  <S.Subheader>Status: {proj.frontmatter?.status}</S.Subheader>
+                  <S.Tags>{join(proj.frontmatter?.tags, ", ")}</S.Tags>
                 </S.FrontCard>
                 <S.BackCard>
-                  <h1>{proj.frontmatter?.name}</h1>
-                  <h3>Status: {proj.frontmatter?.status}</h3>
-                  <h4>{join(proj.frontmatter?.tags, ", ")}</h4>
+                  <S.MainHeader>{proj.frontmatter?.name}</S.MainHeader>
+                  <S.Subheader>Status: {proj.frontmatter?.status}</S.Subheader>
+                  <S.Tags>{join(proj.frontmatter?.tags, ", ")}</S.Tags>
                   <StackedCarousel visibleItems={3}>{images}</StackedCarousel>
-                  <MDXRenderer>{proj.body}</MDXRenderer>
+                  <S.Body>
+                    <MDXRenderer>{proj.body}</MDXRenderer>
+                  </S.Body>
                 </S.BackCard>
               </S.FlexedFlipCard>
             );

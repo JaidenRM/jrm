@@ -1,10 +1,9 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { faAngleDoubleUp } from "@fortawesome/free-solid-svg-icons";
 import isString from "lodash/isString";
 import * as S from "./index.styled";
-import * as SBtn from "../shared/buttons.styled";
+import { Icon } from "../icon";
 
 interface ScrollToOptions {
   id: string;
@@ -62,7 +61,7 @@ export const ReactScrollContainer: React.FC<ReactScrollContainerProps> = ({
       <>
         <S.ChildWrapper>{children}</S.ChildWrapper>
         <S.ButtonWrapper>
-          <SBtn.PrimaryLinkScrollButton
+          <S.PrimaryIconScrollButton
             to={scrollOptions.id}
             duration={scrollOptions.durationMs}
             offset={scrollOptions.offset}
@@ -72,9 +71,9 @@ export const ReactScrollContainer: React.FC<ReactScrollContainerProps> = ({
             {isString(buttonLabel) ? (
               buttonLabel
             ) : (
-              <FontAwesomeIcon icon={buttonLabel} size="2x" />
+              <Icon icon={buttonLabel} size="36px" />
             )}
-          </SBtn.PrimaryLinkScrollButton>
+          </S.PrimaryIconScrollButton>
         </S.ButtonWrapper>
       </>
     </S.FadeContainer>

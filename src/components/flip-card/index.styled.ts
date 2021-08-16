@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled, { css } from "styled-components";
+import { Icon } from "../icon";
 import { FlipOverAnim } from "../shared/animations.styled";
 
 const CardFlipCssAnimations = css`
@@ -54,20 +54,38 @@ export const Card = styled.div<{ isFront: boolean }>`
 `;
 
 export const ActionsWrapper = styled.div`
-  width: 100%;
+  display: flex;
+  flex-direction: row;
   font-size: 2.5rem;
-  text-align: end;
 `;
 
-export const FlipIconWrapper = styled.div`
+export const ExtraActionsContainer = styled.div`
+  display: flex;
+  column-gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const DefaultActionsContainer = styled.div`
+  display: flex;
+  flex: 2;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
+export const IconWrapper = styled.div`
+  color: ${({ theme }) => theme.colors.primary.normal.bg};
+
   &:hover {
     cursor: pointer;
   }
 `;
 
-export const FlipIcon = styled(FontAwesomeIcon)`
-  color: ${({ theme }) => theme.colors.primary.normal.bg};
+export const FlipIconWrapper = styled(IconWrapper)`
+  text-align: right;
+`;
 
+export const FlipIcon = styled(Icon)`
   &:hover {
     animation: ${FlipOverAnim} 1.5s linear infinite;
   }

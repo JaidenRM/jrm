@@ -1,8 +1,28 @@
-import { StaticImage } from "gatsby-plugin-image";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { GatsbyBackgroundImage } from "./gatsby-bg-image";
 
-export const HeroSection = styled.section``;
+const HeroTextAnimations = css`
+  .heroo-text-enter,
+  .heroo-text-appear {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  .heroo-text-enter-active,
+  .heroo-text-appear-active {
+    opacity: 1;
+    transform: translateX(0%);
+    transition: all 1250ms ease-in-out;
+  }
+  .heroo-text-exit {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+  .heroo-text-exit-active {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: all 1000ms ease-in;
+  }
+`;
 
 export const StyledBgSection = styled(GatsbyBackgroundImage)`
   width: 100%;
@@ -27,9 +47,9 @@ export const HeroContainer = styled.div`
   position: relative;
   z-index: 1;
   border-radius: 2.5rem;
-`;
 
-export const HeroStaticImage = styled(StaticImage)``;
+  ${HeroTextAnimations}
+`;
 
 export const HeroContent = styled.div`
   z-index: 3;
@@ -39,6 +59,8 @@ export const HeroContent = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
+export const HeroTextItem = styled.div``;
 
 export const BigHeroHeader = styled.h1`
   color: ${({ theme }) => theme.colors.text};

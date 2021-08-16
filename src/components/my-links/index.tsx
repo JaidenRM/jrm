@@ -30,8 +30,8 @@ export const MyLinks: React.FC<MyLinksProps> = ({
 }) => {
   return (
     <S.Container isVertical={isVertical}>
-      {map(links, link => (
-        <S.IconLinks href={link.linkTo}>
+      {map(links, (link, idx) => (
+        <S.IconLinks href={link.linkTo} key={idx}>
           <S.Icon size={size} src={link.src} />
         </S.IconLinks>
       ))}

@@ -2,7 +2,6 @@ import React from "react";
 import map from "lodash/map";
 import filter from "lodash/filter";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronRight,
   faChevronLeft,
@@ -11,6 +10,7 @@ import * as S from "./index.styled";
 import { useStackedCarouselData } from "../../@hooks/use-stacked-carousel-data";
 import { useModalContext } from "../../providers/modal";
 import { FullScreenModal } from "../full-screen-modal";
+import { Icon } from "../icon";
 
 interface StackedCarouselProps {
   visibleItems: number;
@@ -37,7 +37,7 @@ export const StackedCarousel: React.FC<StackedCarouselProps> = ({
     return (
       <S.CarouselWrapper>
         <S.CarouselPrevious onClick={onPreviousHandler}>
-          <FontAwesomeIcon icon={faChevronLeft} />
+          <Icon icon={faChevronLeft} />
         </S.CarouselPrevious>
         <S.CarouselItemsWrapper items={visibleItems}>
           <TransitionGroup>
@@ -73,7 +73,7 @@ export const StackedCarousel: React.FC<StackedCarouselProps> = ({
           </TransitionGroup>
         </S.CarouselItemsWrapper>
         <S.CarouselNext onClick={onNextHandler}>
-          <FontAwesomeIcon icon={faChevronRight} />
+          <Icon icon={faChevronRight} />
         </S.CarouselNext>
       </S.CarouselWrapper>
     );

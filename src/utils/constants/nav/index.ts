@@ -5,10 +5,14 @@ interface NavOptionProps {
 
 export const NAV_OPTIONS: { [id: string]: NavOptionProps } = Object.freeze({
   OPTION1: {
+    name: "About",
+    to: "about",
+  },
+  OPTION2: {
     name: "Experience",
     to: "experience",
   },
-  OPTION2: {
+  OPTION3: {
     name: "Projects",
     to: "projects",
   },

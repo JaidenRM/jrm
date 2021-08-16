@@ -1,10 +1,10 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { PrimaryButton } from "../shared/buttons.styled";
 import * as S from "./index.styled";
 import { useDefaultThemeContext } from "../../providers/theme";
 import { DARK_THEME } from "../../theme";
+import { Icon } from "../icon";
 
 export const ThemeSwitch: React.FC = () => {
   const [theme, themeHandlers] = useDefaultThemeContext();
@@ -12,9 +12,7 @@ export const ThemeSwitch: React.FC = () => {
   return (
     <S.SwitchWrapper>
       <PrimaryButton onClick={themeHandlers.toggleDarkMode}>
-        <S.IconWrapper>
-          <FontAwesomeIcon icon={theme.id === DARK_THEME.id ? faSun : faMoon} />
-        </S.IconWrapper>
+        <Icon icon={theme.id === DARK_THEME.id ? faSun : faMoon} size="24px" />
       </PrimaryButton>
     </S.SwitchWrapper>
   );
