@@ -1,11 +1,8 @@
 import styled from "styled-components";
+import { Icon } from "../icon";
 
 interface ContainerProps {
   isVertical?: boolean;
-}
-
-interface IconProps {
-  size: string;
 }
 
 export const Container = styled.div<ContainerProps>`
@@ -17,9 +14,7 @@ export const Container = styled.div<ContainerProps>`
   color: ${({ theme }) => theme.colors.text};
 `;
 
-export const IconLinks = styled.a``;
-
-export const Icon = styled.img<IconProps>`
+export const StyledIcon = styled(Icon)`
   height: ${({ size }) => size};
   width: ${({ size }) => size};
 `;
