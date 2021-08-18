@@ -7,14 +7,6 @@ module.exports = {
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
-    {
-      resolve: "gatsby-plugin-react-svg",
-      options: {
-        rule: {
-          include: `${__dirname}/src/images/`,
-        },
-      },
-    },
     `gatsby-plugin-styled-components`,
     {
       resolve: `gatsby-plugin-scroll-reveal`,
