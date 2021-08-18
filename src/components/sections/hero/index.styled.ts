@@ -11,7 +11,7 @@ const HeroTextAnimations = css`
   .hero-text-appear-active {
     opacity: 1;
     transform: translateX(0%);
-    transition: all 1250ms ease-in-out;
+    transition: all 1500ms ease-in-out;
   }
   .hero-text-exit {
     opacity: 1;

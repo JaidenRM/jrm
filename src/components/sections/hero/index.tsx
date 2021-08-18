@@ -34,14 +34,14 @@ export const HeroSection: React.FC<HeroProps> = ({ id }) => {
           <TransitionGroup>
             {isPageLoaded &&
               map(heroTextElements, (textElement, idx) => {
-                const delay = idx * 500;
+                const delay = idx * 750;
 
                 return (
                   <CSSTransition
                     key={idx}
                     in={isPageLoaded}
                     classNames="hero-text"
-                    timeout={delay + 1250}
+                    timeout={delay + 1500}
                   >
                     <S.HeroTextItem delayMs={delay}>
                       {textElement}

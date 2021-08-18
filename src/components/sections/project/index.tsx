@@ -32,8 +32,8 @@ export const ProjectSection: React.FC<ProjectProps> = ({ enterLeft, id }) => {
         scrollAnimOptions={{
           direction: enterLeft ? "left" : "right",
           delay: 200,
-          duration: 1000,
-          fraction: 0.5,
+          duration: 2000,
+          fraction: 0.1,
           big: true,
         }}
       >
