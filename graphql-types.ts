@@ -261,6 +261,8 @@ export type Site = Node & {
   siteMetadata?: Maybe<SiteSiteMetadata>;
   port?: Maybe<Scalars['Int']>;
   host?: Maybe<Scalars['String']>;
+  polyfill?: Maybe<Scalars['Boolean']>;
+  pathPrefix?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -302,13 +304,13 @@ export type SitePage = Node & {
   internalComponentName: Scalars['String'];
   componentChunkName: Scalars['String'];
   matchPath?: Maybe<Scalars['String']>;
-  isCreatedByStatefulCreatePages?: Maybe<Scalars['Boolean']>;
-  pluginCreator?: Maybe<SitePlugin>;
-  pluginCreatorId?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
   internal: Internal;
+  isCreatedByStatefulCreatePages?: Maybe<Scalars['Boolean']>;
+  pluginCreator?: Maybe<SitePlugin>;
+  pluginCreatorId?: Maybe<Scalars['String']>;
 };
 
 export type MdxFrontmatter = {
@@ -689,6 +691,7 @@ export type Frontmatter = {
   images?: Maybe<Array<Maybe<File>>>;
   title?: Maybe<Scalars['String']>;
   startDate?: Maybe<Scalars['Date']>;
+  endDate?: Maybe<Scalars['Date']>;
   company?: Maybe<Scalars['String']>;
   job?: Maybe<Scalars['String']>;
   website?: Maybe<Scalars['String']>;
@@ -698,7 +701,6 @@ export type Frontmatter = {
   repo?: Maybe<Scalars['String']>;
   url?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<Maybe<Scalars['String']>>>;
-  endDate?: Maybe<Scalars['Date']>;
 };
 
 
@@ -710,7 +712,7 @@ export type FrontmatterStartDateArgs = {
 };
 
 
-export type FrontmatterDateArgs = {
+export type FrontmatterEndDateArgs = {
   formatString?: Maybe<Scalars['String']>;
   fromNow?: Maybe<Scalars['Boolean']>;
   difference?: Maybe<Scalars['String']>;
@@ -718,7 +720,7 @@ export type FrontmatterDateArgs = {
 };
 
 
-export type FrontmatterEndDateArgs = {
+export type FrontmatterDateArgs = {
   formatString?: Maybe<Scalars['String']>;
   fromNow?: Maybe<Scalars['Boolean']>;
   difference?: Maybe<Scalars['String']>;
@@ -748,7 +750,7 @@ export type SitePluginPluginOptions = {
   namespace?: Maybe<Scalars['String']>;
   transpileTemplateLiterals?: Maybe<Scalars['Boolean']>;
   pure?: Maybe<Scalars['Boolean']>;
-  threshold?: Maybe<Scalars['Float']>;
+  threshold?: Maybe<Scalars['Int']>;
   once?: Maybe<Scalars['Boolean']>;
   disable?: Maybe<Scalars['Boolean']>;
   selector?: Maybe<Scalars['String']>;
@@ -996,6 +998,8 @@ export type QuerySiteArgs = {
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
   port?: Maybe<IntQueryOperatorInput>;
   host?: Maybe<StringQueryOperatorInput>;
+  polyfill?: Maybe<BooleanQueryOperatorInput>;
+  pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
@@ -1040,13 +1044,13 @@ export type QuerySitePageArgs = {
   internalComponentName?: Maybe<StringQueryOperatorInput>;
   componentChunkName?: Maybe<StringQueryOperatorInput>;
   matchPath?: Maybe<StringQueryOperatorInput>;
-  isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
-  pluginCreator?: Maybe<SitePluginFilterInput>;
-  pluginCreatorId?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
+  isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
+  pluginCreator?: Maybe<SitePluginFilterInput>;
+  pluginCreatorId?: Maybe<StringQueryOperatorInput>;
 };
 
 
@@ -1265,6 +1269,7 @@ export type FrontmatterFilterInput = {
   images?: Maybe<FileFilterListInput>;
   title?: Maybe<StringQueryOperatorInput>;
   startDate?: Maybe<DateQueryOperatorInput>;
+  endDate?: Maybe<DateQueryOperatorInput>;
   company?: Maybe<StringQueryOperatorInput>;
   job?: Maybe<StringQueryOperatorInput>;
   website?: Maybe<StringQueryOperatorInput>;
@@ -1274,7 +1279,6 @@ export type FrontmatterFilterInput = {
   repo?: Maybe<StringQueryOperatorInput>;
   url?: Maybe<StringQueryOperatorInput>;
   tags?: Maybe<StringQueryOperatorInput>;
-  endDate?: Maybe<DateQueryOperatorInput>;
 };
 
 export type FileFilterListInput = {
@@ -1575,6 +1579,7 @@ export type FileFieldsEnum =
   | 'childrenMdx___frontmatter___images___children'
   | 'childrenMdx___frontmatter___title'
   | 'childrenMdx___frontmatter___startDate'
+  | 'childrenMdx___frontmatter___endDate'
   | 'childrenMdx___frontmatter___company'
   | 'childrenMdx___frontmatter___job'
   | 'childrenMdx___frontmatter___website'
@@ -1584,7 +1589,6 @@ export type FileFieldsEnum =
   | 'childrenMdx___frontmatter___repo'
   | 'childrenMdx___frontmatter___url'
   | 'childrenMdx___frontmatter___tags'
-  | 'childrenMdx___frontmatter___endDate'
   | 'childrenMdx___slug'
   | 'childrenMdx___body'
   | 'childrenMdx___excerpt'
@@ -1680,6 +1684,7 @@ export type FileFieldsEnum =
   | 'childMdx___frontmatter___images___children'
   | 'childMdx___frontmatter___title'
   | 'childMdx___frontmatter___startDate'
+  | 'childMdx___frontmatter___endDate'
   | 'childMdx___frontmatter___company'
   | 'childMdx___frontmatter___job'
   | 'childMdx___frontmatter___website'
@@ -1689,7 +1694,6 @@ export type FileFieldsEnum =
   | 'childMdx___frontmatter___repo'
   | 'childMdx___frontmatter___url'
   | 'childMdx___frontmatter___tags'
-  | 'childMdx___frontmatter___endDate'
   | 'childMdx___slug'
   | 'childMdx___body'
   | 'childMdx___excerpt'
@@ -2267,6 +2271,8 @@ export type SiteFieldsEnum =
   | 'siteMetadata___siteUrl'
   | 'port'
   | 'host'
+  | 'polyfill'
+  | 'pathPrefix'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -2368,6 +2374,8 @@ export type SiteFilterInput = {
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
   port?: Maybe<IntQueryOperatorInput>;
   host?: Maybe<StringQueryOperatorInput>;
+  polyfill?: Maybe<BooleanQueryOperatorInput>;
+  pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
@@ -2570,7 +2578,7 @@ export type SitePluginPluginOptionsFilterInput = {
   namespace?: Maybe<StringQueryOperatorInput>;
   transpileTemplateLiterals?: Maybe<BooleanQueryOperatorInput>;
   pure?: Maybe<BooleanQueryOperatorInput>;
-  threshold?: Maybe<FloatQueryOperatorInput>;
+  threshold?: Maybe<IntQueryOperatorInput>;
   once?: Maybe<BooleanQueryOperatorInput>;
   disable?: Maybe<BooleanQueryOperatorInput>;
   selector?: Maybe<StringQueryOperatorInput>;
@@ -2709,6 +2717,92 @@ export type SitePageFieldsEnum =
   | 'internalComponentName'
   | 'componentChunkName'
   | 'matchPath'
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type'
   | 'isCreatedByStatefulCreatePages'
   | 'pluginCreator___id'
   | 'pluginCreator___parent___id'
@@ -2819,93 +2913,7 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___packageJson___peerDependencies___name'
   | 'pluginCreator___packageJson___peerDependencies___version'
   | 'pluginCreator___packageJson___keywords'
-  | 'pluginCreatorId'
-  | 'id'
-  | 'parent___id'
-  | 'parent___parent___id'
-  | 'parent___parent___parent___id'
-  | 'parent___parent___parent___children'
-  | 'parent___parent___children'
-  | 'parent___parent___children___id'
-  | 'parent___parent___children___children'
-  | 'parent___parent___internal___content'
-  | 'parent___parent___internal___contentDigest'
-  | 'parent___parent___internal___description'
-  | 'parent___parent___internal___fieldOwners'
-  | 'parent___parent___internal___ignoreType'
-  | 'parent___parent___internal___mediaType'
-  | 'parent___parent___internal___owner'
-  | 'parent___parent___internal___type'
-  | 'parent___children'
-  | 'parent___children___id'
-  | 'parent___children___parent___id'
-  | 'parent___children___parent___children'
-  | 'parent___children___children'
-  | 'parent___children___children___id'
-  | 'parent___children___children___children'
-  | 'parent___children___internal___content'
-  | 'parent___children___internal___contentDigest'
-  | 'parent___children___internal___description'
-  | 'parent___children___internal___fieldOwners'
-  | 'parent___children___internal___ignoreType'
-  | 'parent___children___internal___mediaType'
-  | 'parent___children___internal___owner'
-  | 'parent___children___internal___type'
-  | 'parent___internal___content'
-  | 'parent___internal___contentDigest'
-  | 'parent___internal___description'
-  | 'parent___internal___fieldOwners'
-  | 'parent___internal___ignoreType'
-  | 'parent___internal___mediaType'
-  | 'parent___internal___owner'
-  | 'parent___internal___type'
-  | 'children'
-  | 'children___id'
-  | 'children___parent___id'
-  | 'children___parent___parent___id'
-  | 'children___parent___parent___children'
-  | 'children___parent___children'
-  | 'children___parent___children___id'
-  | 'children___parent___children___children'
-  | 'children___parent___internal___content'
-  | 'children___parent___internal___contentDigest'
-  | 'children___parent___internal___description'
-  | 'children___parent___internal___fieldOwners'
-  | 'children___parent___internal___ignoreType'
-  | 'children___parent___internal___mediaType'
-  | 'children___parent___internal___owner'
-  | 'children___parent___internal___type'
-  | 'children___children'
-  | 'children___children___id'
-  | 'children___children___parent___id'
-  | 'children___children___parent___children'
-  | 'children___children___children'
-  | 'children___children___children___id'
-  | 'children___children___children___children'
-  | 'children___children___internal___content'
-  | 'children___children___internal___contentDigest'
-  | 'children___children___internal___description'
-  | 'children___children___internal___fieldOwners'
-  | 'children___children___internal___ignoreType'
-  | 'children___children___internal___mediaType'
-  | 'children___children___internal___owner'
-  | 'children___children___internal___type'
-  | 'children___internal___content'
-  | 'children___internal___contentDigest'
-  | 'children___internal___description'
-  | 'children___internal___fieldOwners'
-  | 'children___internal___ignoreType'
-  | 'children___internal___mediaType'
-  | 'children___internal___owner'
-  | 'children___internal___type'
-  | 'internal___content'
-  | 'internal___contentDigest'
-  | 'internal___description'
-  | 'internal___fieldOwners'
-  | 'internal___ignoreType'
-  | 'internal___mediaType'
-  | 'internal___owner'
-  | 'internal___type';
+  | 'pluginCreatorId';
 
 export type SitePageGroupConnection = {
   totalCount: Scalars['Int'];
@@ -2922,13 +2930,13 @@ export type SitePageFilterInput = {
   internalComponentName?: Maybe<StringQueryOperatorInput>;
   componentChunkName?: Maybe<StringQueryOperatorInput>;
   matchPath?: Maybe<StringQueryOperatorInput>;
-  isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
-  pluginCreator?: Maybe<SitePluginFilterInput>;
-  pluginCreatorId?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
+  isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
+  pluginCreator?: Maybe<SitePluginFilterInput>;
+  pluginCreatorId?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageSortInput = {
@@ -3068,6 +3076,7 @@ export type MdxFieldsEnum =
   | 'frontmatter___images___internal___type'
   | 'frontmatter___title'
   | 'frontmatter___startDate'
+  | 'frontmatter___endDate'
   | 'frontmatter___company'
   | 'frontmatter___job'
   | 'frontmatter___website'
@@ -3077,7 +3086,6 @@ export type MdxFieldsEnum =
   | 'frontmatter___repo'
   | 'frontmatter___url'
   | 'frontmatter___tags'
-  | 'frontmatter___endDate'
   | 'slug'
   | 'body'
   | 'excerpt'
@@ -4124,6 +4132,7 @@ export type RedditPostFieldsEnum =
   | 'remoteImage___childrenMdx___frontmatter___images'
   | 'remoteImage___childrenMdx___frontmatter___title'
   | 'remoteImage___childrenMdx___frontmatter___startDate'
+  | 'remoteImage___childrenMdx___frontmatter___endDate'
   | 'remoteImage___childrenMdx___frontmatter___company'
   | 'remoteImage___childrenMdx___frontmatter___job'
   | 'remoteImage___childrenMdx___frontmatter___website'
@@ -4133,7 +4142,6 @@ export type RedditPostFieldsEnum =
   | 'remoteImage___childrenMdx___frontmatter___repo'
   | 'remoteImage___childrenMdx___frontmatter___url'
   | 'remoteImage___childrenMdx___frontmatter___tags'
-  | 'remoteImage___childrenMdx___frontmatter___endDate'
   | 'remoteImage___childrenMdx___slug'
   | 'remoteImage___childrenMdx___body'
   | 'remoteImage___childrenMdx___excerpt'
@@ -4166,6 +4174,7 @@ export type RedditPostFieldsEnum =
   | 'remoteImage___childMdx___frontmatter___images'
   | 'remoteImage___childMdx___frontmatter___title'
   | 'remoteImage___childMdx___frontmatter___startDate'
+  | 'remoteImage___childMdx___frontmatter___endDate'
   | 'remoteImage___childMdx___frontmatter___company'
   | 'remoteImage___childMdx___frontmatter___job'
   | 'remoteImage___childMdx___frontmatter___website'
@@ -4175,7 +4184,6 @@ export type RedditPostFieldsEnum =
   | 'remoteImage___childMdx___frontmatter___repo'
   | 'remoteImage___childMdx___frontmatter___url'
   | 'remoteImage___childMdx___frontmatter___tags'
-  | 'remoteImage___childMdx___frontmatter___endDate'
   | 'remoteImage___childMdx___slug'
   | 'remoteImage___childMdx___body'
   | 'remoteImage___childMdx___excerpt'
